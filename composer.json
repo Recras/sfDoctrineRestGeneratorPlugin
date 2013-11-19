@@ -1,5 +1,5 @@
 {
-	"name": "Recras/sfDoctrineRestGeneratorPlugin",
+	"name": "recras/sf-doctrine-rest-generator-plugin",
 	"description": "Fork of sfDoctrineRestGeneratorPlugin",
 	"license": "MIT",
 	"require": {
