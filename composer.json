@@ -1,0 +1,9 @@
+{
+	"name": "Recras/sfDoctrineRestGeneratorPlugin",
+	"description": "Fork of sfDoctrineRestGeneratorPlugin",
+	"license": "MIT",
+	"require": {
+		"lexpress/symfony1": "*"
+	},
+	"type": "library"
+}
