@@ -5,5 +5,8 @@
 	"require": {
 		"lexpress/symfony1": "*"
 	},
-	"type": "library"
+	"type": "library",
+	"autoload": {
+		"psr-0": { "sf": "lib/" }
+	}
 }
