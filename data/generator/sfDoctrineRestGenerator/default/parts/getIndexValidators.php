@@ -34,6 +34,20 @@ $max_items = $this->configuration->getValue('get.max_items'); ?>
     $validators['<?php echo $param; ?>'] = new sfValidatorPass(array('required' => false));
 <?php endforeach; ?>
 <?php endif; ?>
+<?php $embed_relations_custom = $this->configuration->getValue('get.embed_relations_custom'); ?>
+<?php if ($embed_relations_custom): ?>
+    $validators['embed'] = new sfValidatorCallback(array(
+        'required' => false,
+        'callback' => function ($validator, $input) {
+            foreach (explode('<?php echo $this->configuration->getValue('default.separator'); ?>', $input) as $embed) {
+                if (!in_array($embed, <?php echo var_export($embed_relations_custom); ?>)) {
+                    throw new sfValidatorError($validator, '"' . $embed . '" is not embeddable');
+                }
+            }
+            return $input;
+        },
+    ));
+<?php endif; ?>
 
     return $validators;
   }

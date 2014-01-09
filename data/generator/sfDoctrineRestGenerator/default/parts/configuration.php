@@ -34,6 +34,12 @@ abstract class Base<?php echo ucfirst($this->getModuleName()) ?>GeneratorConfigu
 <?php unset($this->config['get']['embed_relations']) ?>
   }
 
+  public function getEmbedRelationsCustom()
+  {
+    return <?php echo $this->asPhp(isset($this->config['get']['embed_relations_custom']) ? $this->config['get']['embed_relations_custom'] : array()) ?>;
+<?php unset($this->config['get']['embed_relations_custom']) ?>
+  }
+
   public function getEmbeddedRelationsHide()
   {
     $embedded_relations_hide = <?php echo $this->asPhp(isset($this->config['get']['embedded_relations_hide']) ? $this->config['get']['embedded_relations_hide'] : array()) ?>;

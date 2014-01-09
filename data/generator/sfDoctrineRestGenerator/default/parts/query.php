@@ -10,6 +10,7 @@
 <?php
 $display = $this->configuration->getValue('get.display');
 $embed_relations = $this->configuration->getValue('get.embed_relations');
+$embed_relations_custom = $this->configuration->getValue('get.embed_relations_custom');
 
 $fields = $display;
 foreach ($embed_relations as $relation_name)
@@ -27,6 +28,22 @@ foreach ($embed_relations as $relation_name)
 <?php if (!$this->isManyToManyRelation($embed_relation)): ?>
 
       ->leftJoin($this->model.'.<?php echo $embed_relation ?> <?php echo $embed_relation ?>')<?php endif; ?><?php endforeach; ?>;
+<?php if ($embed_relations_custom): ?>
+    if (isset($params['embed']))
+    {
+        $embed_relations = explode('<?php echo $this->configuration->getValue('default.separator', ',') ?>', $params['embed']);
+
+<?php foreach ($embed_relations_custom as $embed_relation): ?>
+<?php if (!$this->isManyToManyRelation($embed_relation)): ?>
+        if (in_array('<?php echo $embed_relation; ?>', $embed_relations))
+        {
+            $q->leftJoin($this->model.'.<?php echo $embed_relation ?> <?php echo $embed_relation ?>');
+        }
+<?php endif; ?>
+<?php endforeach; ?>
+        unset($params['embed']);
+    }
+<?php endif; ?>
 
 <?php
 $max_items = $this->configuration->getValue('get.max_items');
