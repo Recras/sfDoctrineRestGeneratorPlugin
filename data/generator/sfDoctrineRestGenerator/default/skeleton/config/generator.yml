@@ -15,6 +15,7 @@ generator:
 #        default_format:                json    # the default format of the response. If not set, will default to json. accepted values are "json", "xml" or "yaml"
 #        display:                       []      # list here the fields to render in the response
 #        embed_relations:               []      # list here relations to embed in the response
+#        embed_relations_custom:        []      # list here relations to embed in the response if the embed request parameter is set
 #        embedded_relations_hide:
 #          Category:                    [id]    # you can hide fields inside a certain embedded relation
 #        global_additional_fields:      []      # list here additionnal calculated global fields
