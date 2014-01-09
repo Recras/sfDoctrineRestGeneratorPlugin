@@ -28,6 +28,7 @@ foreach ($embed_relations as $relation_name)
 <?php if (!$this->isManyToManyRelation($embed_relation)): ?>
 
       ->leftJoin($this->model.'.<?php echo $embed_relation ?> <?php echo $embed_relation ?>')<?php endif; ?><?php endforeach; ?>;
+<?php if ($embed_relations_custom): ?>
     if (isset($params['embed']))
     {
         $embed_relations = explode('<?php echo $this->configuration->getValue('default.separator', ',') ?>', $params['embed']);
@@ -42,6 +43,7 @@ foreach ($embed_relations as $relation_name)
 <?php endforeach; ?>
         unset($params['embed']);
     }
+<?php endif; ?>
 
 <?php
 $max_items = $this->configuration->getValue('get.max_items');
