@@ -34,6 +34,13 @@ $max_items = $this->configuration->getValue('get.max_items'); ?>
     $validators['<?php echo $param; ?>'] = new sfValidatorPass(array('required' => false));
 <?php endforeach; ?>
 <?php endif; ?>
+<?php $embed_relations_custom = $this->configuration->getValue('get.embed_relations_custom'); ?>
+<?php if ($embed_relations_custom): ?>
+    $validators['embed'] = new sfValidatorChoice(array(
+        'required' => false,
+        'choices' => <?php echo var_export($embed_relations_custom); ?>,
+    ));
+<?php endif; ?>
 
     return $validators;
   }
