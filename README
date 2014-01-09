@@ -341,6 +341,38 @@ Several things to consider:
   * The response contains both the `PostCategoryId` field and the `PostCategory.Id` fields. You can save some bytes by using the `display` or the `hide` options, in order to remove the `PostCategoryId` field.
 
 
+#### embed_relations_custom
+
+The `embed_relations_custom` option contains a list of Doctrine relations that
+may be embedded. These relations will only be embedded if the `embed` parameter
+is present in the request. The behavior is consistent with the `embed_relations`
+option. Here is a valid configuration for our "Post" model:
+
+            config:
+              get:
+                embed_relations_custom:                [ PostCategory ]
+
+If the `embed` request parameter is given, this configuration will produce a
+feed like:
+
+    ...
+    <Post>
+      <Id>1</Id>
+      <PostCategoryId>2</PostCategoryId>
+      <CreatedBy>26</CreatedBy>
+      <Title>Here the title of my post</Title>
+      <Summary>Here the summary of my post</Summary>
+      <Body>Here the body of my post</Body>
+      <PostCategory>
+        <Id>2</Id>
+        <Name>Name of the category</Name>
+        <Description>Description of the category</Description>
+        <IsEnabled>1</IsEnabled>
+      </PostCategory>
+    </Post>
+    ...
+
+
 #### embedded_relations_hide
 
 You may want to hide some fields from the embedded relations. For instance,
