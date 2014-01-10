@@ -527,6 +527,14 @@ class sfDoctrineRestGenerator extends sfGenerator
     return $fields;
   }
 
+  public function getDefaultEmbeddedRelationsFieldsConfiguration()
+  {
+    $fields = array();
+
+    unset($this->config['default']['embedded_relations_fields']);
+    return $fields;
+  }
+
   /**
    * Returns the default configuration for fields.
    *
