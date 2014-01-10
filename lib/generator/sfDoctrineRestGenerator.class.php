@@ -531,6 +531,14 @@ class sfDoctrineRestGenerator extends sfGenerator
   {
     $fields = array();
 
+    if (isset($this->config['default']['embedded_relations_fields']))
+    {
+      foreach ($this->config['default']['embedded_relations_fields'] as $embed => $e_r_fields)
+      {
+        $fields[$embed] = is_array($e_r_fields) ? $e_r_fields : array();
+      }
+    }
+
     unset($this->config['default']['embedded_relations_fields']);
     return $fields;
   }
