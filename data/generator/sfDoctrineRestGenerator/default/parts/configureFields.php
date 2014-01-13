@@ -23,6 +23,38 @@ foreach ($embedded_relations_fields as $embed => $e_r_fields)
   }
 }
 ?>
+<?php foreach ($embedded_relations_fields as $embed => $e_r_fields): ?>
+  /**
+   * Allows to change configuration of the fields of the embedded object
+   * '<?php echo $embed; ?>'
+   *
+   * @param array $object  An associative array representing the object
+   * @return array  The transformed object
+   */
+  protected function configureFieldsEmbedded<?php echo $embed;?>(array $object)
+  {
+<?php foreach ($e_r_fields as $field => $configuration): ?>
+<?php if (isset($configuration['date_format']) || isset($configuration['tag_name']) || isset($configuration['type'])): ?>
+    if (isset($object['<?php echo $field; ?>']))
+    {
+<?php if (isset($configuration['date_format'])): ?>
+      $object['<?php echo $field ?>'] = date('<?php echo $configuration['date_format'] ?>', strtotime($object['<?php echo $field ?>']));
+<?php endif; ?>
+<?php if (isset($configuration['type'])): ?>
+      $object['<?php echo $field ?>'] = is_null($object['<?php echo $field ?>']) ? null : (<?php echo $configuration['type'] ?>) $object['<?php echo $field ?>'];
+<?php endif; ?>
+<?php if (isset($configuration['tag_name'])): ?>
+      $object['<?php echo $configuration['tag_name'] ?>'] = $object['<?php echo $field ?>'];
+      unset($object['<?php echo $field ?>']);
+<?php endif; ?>
+    }
+<?php endif; ?>
+<?php endforeach; ?>
+    return $object;
+  }
+
+<?php endforeach; ?>
+
   /**
    * Allows to change configure some fields of the response, based on the
    * generator.yml configuration file. Supported configuration directives are
