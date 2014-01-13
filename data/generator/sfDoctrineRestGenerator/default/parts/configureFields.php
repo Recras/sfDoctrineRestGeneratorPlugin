@@ -1,12 +1,3 @@
-  /**
-   * Allows to change configure some fields of the response, based on the
-   * generator.yml configuration file. Supported configuration directives are
-   * "date_format" and "tag_name"
-   *
-   * @return  void
-   */
-  protected function configureFields()
-  {
 <?php
 $embedded_relations_fields = $this->configuration->getValue('default.embedded_relations_fields');
 $fields = $this->configuration->getValue('default.fields');
@@ -32,6 +23,15 @@ foreach ($embedded_relations_fields as $embed => $e_r_fields)
   }
 }
 ?>
+  /**
+   * Allows to change configure some fields of the response, based on the
+   * generator.yml configuration file. Supported configuration directives are
+   * "date_format" and "tag_name"
+   *
+   * @return  void
+   */
+  protected function configureFields()
+  {
 <?php if ($specific_configuration_directives): ?>
     foreach ($this->objects as $i => $object)
     {
