@@ -70,26 +70,10 @@ foreach ($embedded_relations_fields as $embed => $e_r_fields)
 <?php foreach ($embedded_relations_fields as $embed => $e_r_fields): ?>
       if (isset($object['<?php echo $embed; ?>']))
       {
-<?php foreach ($e_r_fields as $field => $configuration): ?>
-<?php if (isset($configuration['date_format']) || isset($configuration['tag_name']) || isset($configuration['type'])): ?>
-        if (isset($object['<?php echo $embed; ?>']['<?php echo $field; ?>']))
-        {
-<?php if (isset($configuration['date_format'])): ?>
-          $object['<?php echo $embed; ?>']['<?php echo $field ?>'] = date('<?php echo $configuration['date_format'] ?>', strtotime($object['<?php echo $embed; ?>']['<?php echo $field ?>']));
-<?php endif; ?>
-<?php if (isset($configuration['type'])): ?>
-	     $object['<?php echo $embed; ?>']['<?php echo $field ?>'] = is_null($object['<?php echo $embed; ?>']['<?php echo $field ?>']) ? null : (<?php echo $configuration['type'] ?>) $object['<?php echo $embed; ?>']['<?php echo $field ?>'];
-<?php endif; ?>
-<?php if (isset($configuration['tag_name'])): ?>
-          $object['<?php echo $embed; ?>']['<?php echo $configuration['tag_name'] ?>'] = $object['<?php echo $embed; ?>']['<?php echo $field ?>'];
-          unset($object['<?php echo $embed; ?>']['<?php echo $field ?>']);
-<?php endif; ?>
-        }
-<?php endif; ?>
-<?php endforeach; ?>
+        $object['<?php echo $embed; ?>'] = $this->configureFieldsEmbedded<?php echo $embed; ?>($object['<?php echo $embed; ?>']);
       }
-
 <?php endforeach; ?>
+
 <?php foreach ($fields as $field => $configuration): ?>
 <?php if (isset($configuration['date_format']) || isset($configuration['tag_name']) || isset($configuration['type'])): ?>
       if (isset($object['<?php echo $field ?>']))
