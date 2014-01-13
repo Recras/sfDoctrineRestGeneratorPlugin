@@ -70,7 +70,17 @@ foreach ($embedded_relations_fields as $embed => $e_r_fields)
 <?php foreach ($embedded_relations_fields as $embed => $e_r_fields): ?>
       if (isset($object['<?php echo $embed; ?>']))
       {
-        $object['<?php echo $embed; ?>'] = $this->configureFieldsEmbedded<?php echo $embed; ?>($object['<?php echo $embed; ?>']);
+        if (isset($object['<?php echo $embed; ?>'][0])) // guess that this is an array of <?php echo $embed; ?> relations
+        {
+          foreach ($object['<?php echo $embed; ?>'] as &$embedded_object) // reference for in-place editing
+          {
+            $embedded_object = $this->configureFieldsEmbedded<?php echo $embed; ?>($embedded_object);
+          }
+        }
+        else
+        {
+          $object['<?php echo $embed; ?>'] = $this->configureFieldsEmbedded<?php echo $embed; ?>($object['<?php echo $embed; ?>']);
+        }
       }
 <?php endforeach; ?>
 
