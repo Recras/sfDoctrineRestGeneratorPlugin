@@ -741,7 +741,7 @@ class sfDoctrineRestGenerator extends sfGenerator
 
     if ($column->isForeignKey())
     {
-      $options[] = sprintf('\'model\' => Doctrine_Core::getTable('.$model.')->getRelation(\'%s\')->getAlias()', $column->getRelationKey('alias'));
+      $options[] = sprintf('\'model\' => Doctrine_Core::getTable('.$model.')->getRelation(\'%s\')->getTable()->getComponentName()', $column->getRelationKey('alias'));
     }
     else if ($column->isPrimaryKey())
     {
