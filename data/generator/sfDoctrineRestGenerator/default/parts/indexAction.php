@@ -12,6 +12,7 @@
     $this->dispatcher->notify(new sfEvent($this, 'sfDoctrineRestGenerator.get.pre', array('params' => $params)));
 
     $request->setRequestFormat('html');
+    $this->setTemplate('index');
     $params = $this->cleanupParameters($params);
 
     try
