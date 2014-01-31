@@ -40,6 +40,13 @@ if ($this->configuration->getValue('get.pagination_enabled'))
 
 <?php include dirname(__FILE__).'/../../parts/getSerializer.php' ?>
 
+<?php
+if ($this->configuration->getValue('get.sort_custom'))
+{
+  include dirname(__FILE__).'/../../parts/getSortValidators.php';
+}
+?>
+
 <?php include dirname(__FILE__).'/../../parts/getUrlForAction.php' ?>
 
 <?php include dirname(__FILE__).'/../../parts/indexAction.php' ?>
