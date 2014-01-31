@@ -1,3 +1,7 @@
+<?php
+
+class sfDoctrineRestGeneratorActions extends sfActions
+{
   /**
    * Applies a set of validators to an array of parameters
    *
@@ -47,3 +51,4 @@
       }
     }
   }
+}

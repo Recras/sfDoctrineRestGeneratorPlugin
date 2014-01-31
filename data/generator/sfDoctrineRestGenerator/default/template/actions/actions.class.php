@@ -65,8 +65,6 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends <?php echo $t
 
 <?php include dirname(__FILE__).'/../../parts/updateObjectFromRequest.php' ?>
 
-<?php include dirname(__FILE__).'/../../parts/validate.php' ?>
-
 <?php include dirname(__FILE__).'/../../parts/validateCreate.php' ?>
 
 <?php include dirname(__FILE__).'/../../parts/validateIndex.php' ?>
