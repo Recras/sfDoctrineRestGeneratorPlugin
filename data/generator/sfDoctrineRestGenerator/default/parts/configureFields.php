@@ -95,6 +95,9 @@ foreach ($embedded_relations_fields as $embed => $e_r_fields)
 	     $object['<?php echo $field ?>'] = is_null($object['<?php echo $field ?>']) ? null : (<?php echo $configuration['type'] ?>) $object['<?php echo $field ?>'];
 <?php endif; ?>
 <?php if (isset($configuration['tag_name'])): ?>
+      }
+      if (array_key_exists('<?php echo $field ?>', $object))
+      {
         $object['<?php echo $configuration['tag_name'] ?>'] = $object['<?php echo $field ?>'];
         unset($object['<?php echo $field ?>']);
 <?php endif; ?>
