@@ -28,7 +28,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->getResponse()->setStatusCode(201);
     $this->doSave();
     $this->getResponse()->setHttpHeader('Location', $this->getUrlForAction('show', false));
-    return sfView::NONE;
+    return sfView::SUCCESS;
   }
 
   protected function createObject()
@@ -40,7 +40,12 @@ class sfDoctrineRestGeneratorActions extends sfActions
   {
     $this->object->save();
 
-    return sfView::NONE;
+    $this->objects = array($this->object->toArray(false));
+    $this->formatObjects(array());
+    $this->outputObjects(false);
+    $this->setTemplate('index');
+
+    return sfView::SUCCESS;
   }
 
   protected function getContent()
