@@ -13,6 +13,7 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends <?php echo $t
 
 {
   public $model = '<?php echo $this->getModelClass() ?>';
+  protected $additional_params = <?php var_export($this->configuration->getValue('get.additional_params', array())); ?>;
 
 <?php include dirname(__FILE__).'/../../parts/cleanupParameters.php' ?>
 
