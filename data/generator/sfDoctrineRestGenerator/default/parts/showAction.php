@@ -56,6 +56,7 @@
     $this->embedGlobalAdditional<?php echo $field ?>($params);
 <?php endforeach; ?>
 
+    // configure the fields of the returned objects and eventually hide some
     $this->setFieldVisibility();
     $this->configureFields();
 
