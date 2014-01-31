@@ -31,8 +31,6 @@
 
     $this->formatObjects($params);
 
-    $serializer = $this->getSerializer();
-    $this->getResponse()->setContentType($serializer->getContentType());
-    $this->output = $serializer->serialize($this->objects[0], $this->model, false);
+    $this->outputObjects(false);
     unset($this->objects);
   }
