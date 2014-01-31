@@ -75,6 +75,11 @@ class sfDoctrineRestGeneratorActions extends sfActions
     return sfView::NONE;
   }
 
+  protected function getPaginationValidators()
+  {
+    return array();
+  }
+
   /**
    * Returns the list of validators for an update request.
    * @return  array  an array of validators
