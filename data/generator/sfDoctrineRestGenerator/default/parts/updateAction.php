@@ -6,13 +6,7 @@
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod(sfRequest::PUT));
-    $content = $request->getContent();
-
-    // Restores backward compatibility. Content can be the HTTP request full body, or a form encoded "content" var.
-    if (strpos($content, 'content=') === 0 || $request->hasParameter('content'))
-    {
-      $content = $request->getParameter('content');
-    }
+    $content = $this->getContent();
 
     $request->setRequestFormat('html');
 
@@ -23,28 +17,7 @@
     catch (Exception $e)
     {
       $this->getResponse()->setStatusCode(406);
-      $serializer = $this->getSerializer();
-      $this->getResponse()->setContentType($serializer->getContentType());
-      $error = $e->getMessage();
-
-      // event filter to enable customisation of the error message.
-      $result = $this->dispatcher->filter(
-        new sfEvent($this, 'sfDoctrineRestGenerator.filter_error_output'),
-        $error
-      )->getReturnValue();
-
-      if ($error === $result)
-      {
-        $error = array(array('message' => $error));
-        $this->output = $serializer->serialize($error, 'error');
-      }
-      else
-      {
-        $this->output = $serializer->serialize($result);
-      }
-
-      $this->setTemplate('index');
-      return sfView::SUCCESS;
+      return $this->handleException($e);
     }
 
     // retrieve the object

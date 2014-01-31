@@ -10,11 +10,9 @@
     unset($params['module']);
     unset($params['action']);
 
-    $additional_params = <?php var_export($this->configuration->getValue('get.additional_params', array())); ?>;
-
     foreach ($params as $name => $value)
     {
-      if ((null === $value) || ('' === $value) || in_array($name, $additional_params))
+      if ((null === $value) || ('' === $value) || in_array($name, $this->additional_params))
       {
         unset($params[$name]);
       }

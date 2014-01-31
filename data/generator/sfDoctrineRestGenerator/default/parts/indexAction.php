@@ -12,6 +12,7 @@
     $this->dispatcher->notify(new sfEvent($this, 'sfDoctrineRestGenerator.get.pre', array('params' => $params)));
 
     $request->setRequestFormat('html');
+    $this->setTemplate('index');
     $params = $this->cleanupParameters($params);
 
     try
@@ -22,27 +23,7 @@
     catch (Exception $e)
     {
       $this->getResponse()->setStatusCode(406);
-      $serializer = $this->getSerializer();
-      $this->getResponse()->setContentType($serializer->getContentType());
-      $error = $e->getMessage();
-
-      // event filter to enable customisation of the error message.
-      $result = $this->dispatcher->filter(
-        new sfEvent($this, 'sfDoctrineRestGenerator.filter_error_output'),
-        $error
-      )->getReturnValue();
-
-      if ($error === $result)
-      {
-        $error = array(array('message' => $error));
-        $this->output = $serializer->serialize($error, 'error');
-      }
-      else
-      {
-        $this->output = $serializer->serialize($result);
-      }
-
-      return sfView::SUCCESS;
+      return $this->handleException($e);
     }
 
     $this->queryExecute($params);
@@ -62,18 +43,16 @@
 <?php if ($this->isManyToManyRelation($embed_relation)): ?>
     $this->embedManyToMany<?php echo $embed_relation ?>($params);
 <?php endif; ?><?php endforeach; ?>
-<?php $object_additional_fields = $this->configuration->getValue('get.object_additional_fields'); ?>
-<?php if (count($object_additional_fields) > 0): ?>
+<?php if (count($this->configuration->getValue('get.object_additional_fields')) > 0): ?>
 
     foreach ($this->objects as $key => $object)
     {
-<?php foreach ($object_additional_fields as $field): ?>
+<?php foreach ($this->configuration->getValue('get.object_additional_fields') as $field): ?>
       $this->embedAdditional<?php echo $field ?>($key, $params);
 <?php endforeach; ?>
     }
-<?php endif; ?><?php $global_additional_fields = $this->configuration->getValue('get.global_additional_fields'); ?>
-<?php foreach ($global_additional_fields as $field): ?>
-
+<?php endif; ?>
+<?php foreach ($this->configuration->getValue('get.global_additional_fields') as $field): ?>
     $this->embedGlobalAdditional<?php echo $field ?>($params);
 <?php endforeach; ?>
 

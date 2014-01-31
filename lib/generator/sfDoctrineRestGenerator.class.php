@@ -114,7 +114,7 @@ class sfDoctrineRestGenerator extends sfGenerator
    */
   public function getActionsBaseClass()
   {
-    return isset($this->params['actions_base_class']) ? $this->params['actions_base_class'] : 'sfActions';
+    return isset($this->params['actions_base_class']) ? $this->params['actions_base_class'] : 'sfDoctrineRestGeneratorActions';
   }
 
   /**
