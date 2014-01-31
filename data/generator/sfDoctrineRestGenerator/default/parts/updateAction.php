@@ -6,13 +6,7 @@
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod(sfRequest::PUT));
-    $content = $request->getContent();
-
-    // Restores backward compatibility. Content can be the HTTP request full body, or a form encoded "content" var.
-    if (strpos($content, 'content=') === 0 || $request->hasParameter('content'))
-    {
-      $content = $request->getParameter('content');
-    }
+    $content = $this->getContent();
 
     $request->setRequestFormat('html');
 

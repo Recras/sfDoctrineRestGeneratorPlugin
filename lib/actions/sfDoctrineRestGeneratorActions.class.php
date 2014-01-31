@@ -10,17 +10,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST));
-    $content = $request->getContent();
-
-    // Restores backward compatibility. Content can be the HTTP request full body, or a form encoded "content" var.
-    if (strpos($content, 'content=') === 0)
-    {
-      $content = $request->getParameter('content');
-    }
-    if ($content === false)
-    {
-      $content = $request->getPostParameter('content'); // Last chance to get the content!
-    }
+    $content = $this->getContent();
 
     $request->setRequestFormat('html');
 
@@ -73,6 +63,24 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->object->save();
 
     return sfView::NONE;
+  }
+
+  protected function getContent()
+  {
+    $request = $this->getRequest();
+    $content = $request->getContent();
+
+    // Restores backward compatibility. Content can be the HTTP request full body, or a form encoded "content" var.
+    if (strpos($content, 'content=') === 0)
+    {
+      $content = $request->getParameter('content');
+    }
+    if ($content === false)
+    {
+      $content = $request->getPostParameter('content'); // Last chance to get the content!
+    }
+
+    return $content;
   }
 
   protected function getPaginationValidators()
