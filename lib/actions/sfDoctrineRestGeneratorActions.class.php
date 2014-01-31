@@ -122,6 +122,22 @@ class sfDoctrineRestGeneratorActions extends sfActions
   }
 
   /**
+   * Output the objects
+   *
+   * @return void
+   */
+  protected function outputObjects($multiple = true)
+  {
+    $serializer = $this->getSerializer();
+    $this->getResponse()->setContentType($serializer->getContentType());
+    if ($multiple) {
+      $this->output = $serializer->serialize($this->objects, $this->model);
+    } else {
+      $this->output = $serializer->serialize($this->objects[0], $this->model, false);
+    }
+  }
+
+  /**
    * Applies a set of validators to an array of parameters
    *
    * @param array   $params      An array of parameters

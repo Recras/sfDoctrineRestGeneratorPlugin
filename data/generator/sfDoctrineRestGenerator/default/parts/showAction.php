@@ -29,19 +29,8 @@
     $this->queryFetchOne($params);
     $this->forward404Unless(is_array($this->objects[0]));
 
-<?php foreach ($this->configuration->getValue('get.object_additional_fields') as $field): ?>
-    $this->embedAdditional<?php echo $field ?>(0, $params);
-<?php endforeach; ?>
-<?php foreach ($this->configuration->getValue('get.global_additional_fields') as $field): ?>
-    $this->embedGlobalAdditional<?php echo $field ?>($params);
-<?php endforeach; ?>
+    $this->formatObjects($params);
 
-    // configure the fields of the returned objects and eventually hide some
-    $this->setFieldVisibility();
-    $this->configureFields();
-
-    $serializer = $this->getSerializer();
-    $this->getResponse()->setContentType($serializer->getContentType());
-    $this->output = $serializer->serialize($this->objects[0], $this->model, false);
+    $this->outputObjects(false);
     unset($this->objects);
   }
