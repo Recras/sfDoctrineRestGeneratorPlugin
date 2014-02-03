@@ -219,7 +219,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
     {
       if (!isset($validators[$name]))
       {
-        throw new sfValidatorError(sprintf('Could not validate extra field "%s"', $prefix.$name));
+        throw new sfValidatorError(new sfValidatorPass(), sprintf('Could not validate extra field "%s"', $prefix.$name));
       }
       else
       {
@@ -249,7 +249,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
       }
       catch (sfValidatorError $e)
       {
-        throw new sfValidatorError(sprintf('Could not validate field "%s": %s', $prefix.$name, $e->getMessage()));
+        throw new sfValidatorError($e->getValidator(), sprintf('Could not validate field "%s": %s', $prefix.$name, $e->getMessage()));
       }
     }
   }
