@@ -4,5 +4,5 @@
    */
   public function getCreateValidators()
   {
-    return <?php echo $this->getCreateValidatorsArray($this); ?>;
+    return <?php echo $this->getCreateValidatorsArray($this, 0, $this->configuration->getValue('create.disable_validators')); ?>;
   }

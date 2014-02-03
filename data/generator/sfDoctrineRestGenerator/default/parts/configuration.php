@@ -94,4 +94,6 @@ abstract class Base<?php echo ucfirst($this->getModuleName()) ?>GeneratorConfigu
 <?php include dirname(__FILE__).'/paginationConfiguration.php' ?>
 
 <?php include dirname(__FILE__).'/sortConfiguration.php' ?>
+
+<?php include dirname(__FILE__).'/createConfiguration.php' ?>
 }
