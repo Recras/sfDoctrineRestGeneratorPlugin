@@ -41,7 +41,10 @@ class sfDoctrineRestGeneratorConfiguration
         'pagination_page_size'        => $this->getPaginationPageSize(),
         'sort_custom'                 => $this->getSortCustom(),
         'sort_default'                => $this->getSortDefault()
-      )
+      ),
+      'create'  => array(
+        'disable_validators'          => $this->getDisableCreateValidators(),
+      ),
     );
   }
 

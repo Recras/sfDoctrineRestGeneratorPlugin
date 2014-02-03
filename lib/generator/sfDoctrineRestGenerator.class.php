@@ -804,7 +804,7 @@ class sfDoctrineRestGenerator extends sfGenerator
    * array of validators in a smiliar arrangement like the relationships
    * hierarchy.
    */
-  protected function getCreateValidatorsArray($table, $level = 0)
+  protected function getCreateValidatorsArray($table, $level = 0, $disabled_validators = array())
   {
     if ($level > 1)
     {
@@ -823,7 +823,7 @@ class sfDoctrineRestGenerator extends sfGenerator
 
     foreach ($this->getColumns($table) as $column)
     {
-      if (!$column->isPrimaryKey())
+      if (!$column->isPrimaryKey() && !in_array($column->getFieldName(), $disabled_validators))
       {
         $validators .= $spaces.'\''.$column->getFieldName().'\' => new '.$this->getCreateValidatorClassForColumn($column).'('.$this->getCreateValidatorOptionsForColumn($column, $model_name)."),\n";
       }
@@ -835,7 +835,7 @@ class sfDoctrineRestGenerator extends sfGenerator
       {
         // to do later
       }
-      else
+      elseif (!in_array($alias, $disabled_validators))
       {
         $sub_validators = $this->getCreateValidatorsArray($relation->getTable(), $level + 1);
 

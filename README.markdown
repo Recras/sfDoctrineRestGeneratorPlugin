@@ -201,6 +201,8 @@ Here is the default content of the `generator.yml` file:
         #        sort_default:                  []      # set to [column, asc|desc] in order to sort on a column
         #        filters:                               # list here the filters
         #          created_at:                  { date_format: 'd-m-Y', multiple: true }  # for instance
+              create:
+        #        disable_validators:            [ created_at ] # list here validators that should not be generated
 
 The different possible parameters, commented in the previous sample, are
 detailed in the following chapters.
@@ -535,6 +537,20 @@ accepted. For example:
               get:
                 filters:
                   created_at:                  { date_format: 'd-m-Y' }
+
+### create
+
+The `create` option lists several options specific to the "create" operation:
+
+#### disable_validators
+
+The `disable_validators` options contains the list of field names for which
+create validators should not be generated. For example:
+
+            config:
+              create:
+                disable_validators:            [ created_at, updated_at ]
+
 
 ### Other configuration variables
 
