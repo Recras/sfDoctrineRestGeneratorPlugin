@@ -12,4 +12,5 @@ protected function getSortValidators()
     'choices' => array('asc', 'desc'),
     'required' => false,
   ));
+  return $validators;
 }
