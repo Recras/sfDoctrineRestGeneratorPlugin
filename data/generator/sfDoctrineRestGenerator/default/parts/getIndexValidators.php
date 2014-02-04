@@ -32,5 +32,19 @@
     ));
 <?php endif; ?>
 
+<?php $filters = $this->configuration->getValue('get.filters'); ?>
+<?php if ($filters): ?>
+<?php   foreach ($filters as $name => $filter): ?>
+<?php     if (isset($filter['compare'])): ?>
+<?php       foreach ($filter['compare'] as $operator => $opAlias) : ?>
+<?php         $opAlias = ucfirst($opAlias == null ? $operator : $opAlias); ?>
+    $validators['<?php echo $name . $opAlias ?>'] = new sfValidatorPass(array(
+      'required' => false,
+    ));
+<?php       endforeach; ?>
+<?php     endif; ?>
+<?php   endforeach; ?>
+<?php endif; ?>
+
     return $validators;
   }

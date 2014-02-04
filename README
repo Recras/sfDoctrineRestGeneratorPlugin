@@ -200,6 +200,8 @@ Here is the default content of the `generator.yml` file:
         #        sort_custom:                   false   # set to true to allow the client to pass a sort_by and a sort_order parameter
         #        sort_default:                  []      # set to [column, asc|desc] in order to sort on a column
         #        filters:                               # list here the filters
+        #          id:
+        #            compare:                   { less: , greaterEquals: moreThan } # generate filters idLess and idMoreThan
         #          created_at:                  { date_format: 'd-m-Y', multiple: true }  # for instance
               create:
         #        disable_validators:            [ created_at ] # list here validators that should not be generated
@@ -537,6 +539,31 @@ accepted. For example:
               get:
                 filters:
                   created_at:                  { date_format: 'd-m-Y' }
+
+To compare a certain field with a given value, you can add a `compare`
+directive to add filters to a certain field.
+These filters take the name `fieldNameOperator`, the following operators are
+supported:
+
+ * less
+ * lessEqual
+ * greater
+ * greaterEqual
+
+Optionally, the compare filters take an alias name, which overrides the default
+operator names in the parameter.
+
+For example, to add compare filters to the `created_at` field:
+
+            config:
+              get:
+                filters:
+                  created_at:
+                    compare:
+                      less: before # generates the created_atBefore filter
+                      lessEqual: before # generates the created_atLessEqual filter
+                      greater: after # generates the created_atAfter filter
+                      # greaterEqual will not be generated
 
 ### create
 
