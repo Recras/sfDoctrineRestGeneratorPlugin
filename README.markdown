@@ -201,7 +201,7 @@ Here is the default content of the `generator.yml` file:
         #        sort_default:                  []      # set to [column, asc|desc] in order to sort on a column
         #        filters:                               # list here the filters
         #          id:
-        #            compare:                   { less: , greaterEquals: moreThan } # generate filters idLess and idMoreThan
+        #            compare:                   { less: , greaterEqual: moreThan } # generate filters idLess and idMoreThan
         #          created_at:                  { date_format: 'd-m-Y', multiple: true }  # for instance
               create:
         #        disable_validators:            [ created_at ] # list here validators that should not be generated
