@@ -12,7 +12,7 @@
 
     try
     {
-      $this->validateUpdate($content);
+      $params = $this->validateUpdate($content);
     }
     catch (Exception $e)
     {
@@ -27,7 +27,7 @@
     $this->forward404Unless($this->object);
 
     // update and save it
-    $this->updateObjectFromRequest($content);
+    $this->updateObjectFromParameters($params);
 
     return $this->doSave();
   }
