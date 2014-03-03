@@ -256,7 +256,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
       {
         if (!is_array($validators[$name]))
         {
-          $params[$name] = $validators[$name]->clean(null);
+          $validators[$name]->clean(null);
         }
       }
       catch (sfValidatorError $e)
