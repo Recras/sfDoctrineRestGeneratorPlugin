@@ -16,7 +16,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
 
     try
     {
-      $this->validateCreate($content);
+      $params = $this->validateCreate($content);
     }
     catch (Exception $e)
     {
@@ -24,7 +24,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
     }
 
     $this->object = $this->createObject();
-    $this->updateObjectFromRequest($content);
+    $this->updateObjectFromParameters($params);
     $this->getResponse()->setStatusCode(201);
     $this->doSave();
     $this->getResponse()->setHttpHeader('Location', $this->getUrlForAction('show', false));
@@ -101,29 +101,29 @@ class sfDoctrineRestGeneratorActions extends sfActions
    */
   public function handleException(Exception $e)
   {
-      $this->getResponse()->setStatusCode(406);
-      $serializer = $this->getSerializer();
-      $this->getResponse()->setContentType($serializer->getContentType());
-      $error = $e->getMessage();
+    $this->getResponse()->setStatusCode(406);
+    $serializer = $this->getSerializer();
+    $this->getResponse()->setContentType($serializer->getContentType());
+    $error = $e->getMessage();
 
-      // event filter to enable customisation of the error message.
-      $result = $this->dispatcher->filter(
-        new sfEvent($this, 'sfDoctrineRestGenerator.filter_error_output'),
-        $error
-      )->getReturnValue();
+    // event filter to enable customisation of the error message.
+    $result = $this->dispatcher->filter(
+      new sfEvent($this, 'sfDoctrineRestGenerator.filter_error_output'),
+      $error
+    )->getReturnValue();
 
-      if ($error === $result)
-      {
-        $error = array(array('message' => $error));
-        $this->output = $serializer->serialize($error, 'error');
-      }
-      else
-      {
-        $this->output = $serializer->serialize($result);
-      }
+    if ($error === $result)
+    {
+      $error = array(array('message' => $error));
+      $this->output = $serializer->serialize($error, 'error');
+    }
+    else
+    {
+      $this->output = $serializer->serialize($result);
+    }
 
-      $this->setTemplate('index');
-      return sfView::SUCCESS;
+    $this->setTemplate('index');
+    return sfView::SUCCESS;
   }
 
   /**
@@ -158,14 +158,15 @@ class sfDoctrineRestGeneratorActions extends sfActions
         if (is_array($validators[$name]))
         {
           // validator for a related object
-          $this->validate($value, $validators[$name], $prefix.$name.'.');
+          $params[$name] = $this->validate($value, $validators[$name], $prefix.$name.'.');
         }
         else
         {
-          $validators[$name]->clean($value);
+          $params[$name] = $validators[$name]->clean($value);
         }
       }
     }
+    return $params;
   }
 
   /**
@@ -204,9 +205,14 @@ class sfDoctrineRestGeneratorActions extends sfActions
     )->getReturnValue());
   }
 
+  protected function updateObjectFromParameters(array $parameters)
+  {
+    $this->object->fromArray($parameters);
+  }
+
   protected function updateObjectFromRequest($content)
   {
-    $this->object->importFrom('array', $this->parsePayload($content));
+    self::updateObjectFromParameters($this->parsePayload($content));
   }
 
   /**
@@ -214,6 +220,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    *
    * @param array   $params      An array of parameters
    * @param array   $validators  An array of validators
+   * @return array  The cleaned parameters
    * @throw sfException
    */
   public function validate($params, $validators, $prefix = '')
@@ -231,11 +238,11 @@ class sfDoctrineRestGeneratorActions extends sfActions
         if (is_array($validators[$name]))
         {
           // validator for a related object
-          $this->validate($value, $validators[$name], $prefix.$name.'.');
+          $params[$name] = $this->validate($value, $validators[$name], $prefix.$name.'.');
         }
         else
         {
-          $validators[$name]->clean($value);
+          $params[$name] = $validators[$name]->clean($value);
         }
 
         unset($unused[array_search($name, $unused, true)]);
@@ -257,22 +264,26 @@ class sfDoctrineRestGeneratorActions extends sfActions
         throw new sfValidatorError($e->getValidator(), sprintf('Could not validate field "%s": %s', $prefix.$name, $e->getMessage()));
       }
     }
+    return $params;
   }
 
   /**
    * Applies the creation validators to the payload posted to the service
    *
    * @param   string   $payload  A payload string
+   * @return  array    The cleaned parameters
    */
   public function validateCreate($payload)
   {
     $params = $this->parsePayload($payload);
 
     $validators = $this->getCreateValidators();
-    $this->validate($params, $validators);
+    $params = $this->validate($params, $validators);
 
     $postvalidators = $this->getCreatePostValidators();
-    $this->postValidate($params, $postvalidators);
+    $params = $this->postValidate($params, $postvalidators);
+
+    return $params;
   }
 
   /**
@@ -280,14 +291,17 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * webservice
    *
    * @param   array   $params  An array of criterions used for the selection
+   * @return  array   The cleaned parameters
    */
   public function validateIndex($params)
   {
     $validators = $this->getIndexValidators();
-    $this->validate($params, $validators);
+    $params = $this->validate($params, $validators);
 
     $postvalidators = $this->getIndexPostValidators();
-    $this->postValidate($params, $postvalidators);
+    $params = $this->postValidate($params, $postvalidators);
+
+    return $params;
   }
 
   /**
@@ -295,14 +309,17 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * webservice
    *
    * @param   array   $params  An array of criterions used for the selection
+   * @return  array   The cleaned parameters
    */
   public function validateShow($params)
   {
-  	$validators = $this->getIndexValidators();
-  	$this->validate($params, $validators);
+    $validators = $this->getIndexValidators();
+    $params = $this->validate($params, $validators);
 
-  	$postvalidators = $this->getIndexPostValidators();
-  	$this->postValidate($params, $postvalidators);
+    $postvalidators = $this->getIndexPostValidators();
+    $params = $this->postValidate($params, $postvalidators);
+
+    return $params;
   }
 
   /**
@@ -315,9 +332,11 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $params = $this->parsePayload($payload);
 
     $validators = $this->getUpdateValidators();
-    $this->validate($params, $validators);
+    $params = $this->validate($params, $validators);
 
     $postvalidators = $this->getUpdatePostValidators();
-    $this->postValidate($params, $postvalidators);
+    $params = $this->postValidate($params, $postvalidators);
+
+    return $params;
   }
 }

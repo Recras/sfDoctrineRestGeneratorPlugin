@@ -18,7 +18,7 @@
     try
     {
       $format = $this->getFormat();
-      $this->validateIndex($params);
+      $params = $this->validateIndex($params);
     }
     catch (Exception $e)
     {
