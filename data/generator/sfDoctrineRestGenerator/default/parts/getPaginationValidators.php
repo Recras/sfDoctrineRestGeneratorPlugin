@@ -10,10 +10,12 @@ $max_items = $this->configuration->getValue('get.max_items');
   {
     $validators = array();
     $validators['page'] = new sfValidatorInteger(array('min' => 1, 'required' => false));
-<?php if ($pagination_custom_page_size && ($max_items > 0)): ?>
+<?php if ($pagination_custom_page_size): ?>
     $validators['page_size'] = new sfValidatorInteger(array(
       'min' => 1,
+<?php if ($max_items > 0): ?>
       'max' => <?php echo $max_items ?>,
+<?php endif; ?>
       'required' => false
     ));
 <?php endif; ?>
