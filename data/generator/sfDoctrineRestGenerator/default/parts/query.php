@@ -23,11 +23,10 @@ foreach ($embed_relations as $relation_name)
       ->select('<?php echo $display ?>')
 <?php endif; ?>
 
-      ->from($this->model.' '.$this->model)
-<?php foreach ($embed_relations as $embed_relation): ?>
-<?php if (!$this->isManyToManyRelation($embed_relation)): ?>
+      ->from($this->model.' '.$this->model);
 
-      ->leftJoin($this->model.'.<?php echo $embed_relation ?> <?php echo $embed_relation ?>')<?php endif; ?><?php endforeach; ?>;
+    $this->queryEmbedRelations($q, $params);
+
 <?php if ($embed_relations_custom): ?>
     if (isset($params['embed']))
     {
