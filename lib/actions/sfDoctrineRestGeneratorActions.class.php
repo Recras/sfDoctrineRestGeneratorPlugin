@@ -180,6 +180,16 @@ class sfDoctrineRestGeneratorActions extends sfActions
   }
 
   /**
+   * Add joins for relations specified in the "embed_relations_custom" config
+   *
+   * @param  Doctrine_Query  $query   The query to add joins to
+   * @param  array           &$params The filtered parameters for this request
+   */
+  public function queryEmbedRelationsCustom(Doctrine_Query $query, array &$params)
+  {
+  }
+
+  /**
    * Execute the query for selecting a collection of objects, eventually
    * along with related objects
    *

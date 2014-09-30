@@ -26,23 +26,7 @@ foreach ($embed_relations as $relation_name)
       ->from($this->model.' '.$this->model);
 
     $this->queryEmbedRelations($q, $params);
-
-<?php if ($embed_relations_custom): ?>
-    if (isset($params['embed']))
-    {
-        $embed_relations = explode('<?php echo $this->configuration->getValue('default.separator', ',') ?>', $params['embed']);
-
-<?php foreach ($embed_relations_custom as $embed_relation): ?>
-<?php if (!$this->isManyToManyRelation($embed_relation)): ?>
-        if (in_array('<?php echo $embed_relation; ?>', $embed_relations))
-        {
-            $q->leftJoin($this->model.'.<?php echo $embed_relation ?> <?php echo $embed_relation ?>');
-        }
-<?php endif; ?>
-<?php endforeach; ?>
-        unset($params['embed']);
-    }
-<?php endif; ?>
+    $this->queryEmbedRelationsCustom($q, $params);
 
     $this->queryPagination($q, $params);
 <?php $sort_custom = $this->configuration->getValue('get.sort_custom'); ?>
