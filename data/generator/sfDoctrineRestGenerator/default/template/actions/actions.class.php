@@ -58,6 +58,8 @@ if ($this->configuration->getValue('get.sort_custom'))
 <?php include dirname(__FILE__).'/../../parts/query.php' ?>
 <?php include dirname(__FILE__).'/../../parts/queryAdditionnal.php' ?>
 
+<?php include dirname(__FILE__).'/../../parts/queryPagination.php' ?>
+
 <?php include dirname(__FILE__).'/../../parts/setFieldVisibility.php' ?>
 
 <?php include dirname(__FILE__).'/../../parts/showAction.php' ?>
