@@ -29,29 +29,7 @@ foreach ($embed_relations as $relation_name)
     $this->queryEmbedRelationsCustom($q, $params);
 
     $this->queryPagination($q, $params);
-<?php $sort_custom = $this->configuration->getValue('get.sort_custom'); ?>
-<?php $sort_default = $this->configuration->getValue('get.sort_default'); ?>
-<?php if ($sort_default && count($sort_default) == 2): ?>
-    $sort = '<?php echo $sort_default[0] ?> <?php echo $sort_default[1] ?>';
-<?php endif; ?>
-<?php if ($sort_custom): ?>
-    if (isset($params['sort_by']))
-    {
-      $sort = $params['sort_by'];
-      unset($params['sort_by']);
-
-      if (isset($params['sort_order']))
-      {
-        $sort .= ' '.$params['sort_order'];
-        unset($params['sort_order']);
-      }
-    }
-<?php endif; ?>
-
-    if (isset($sort))
-    {
-      $q->orderBy($sort);
-    }
+    $this->querySort($q, $params);
 
 <?php $primaryKeys = $this->getPrimaryKeys(); ?>
 <?php foreach ($primaryKeys as $primaryKey): ?>
