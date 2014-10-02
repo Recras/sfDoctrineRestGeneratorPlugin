@@ -169,7 +169,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
     return $params;
   }
 
-  public function query(array $params)
+  public function query($params)
   {
     $q = Doctrine_Query::create()
       ->from($this->model.' '.$this->model);
