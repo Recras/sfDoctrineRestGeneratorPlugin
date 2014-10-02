@@ -55,12 +55,21 @@ if ($this->configuration->getValue('get.sort_custom'))
 
 <?php include dirname(__FILE__).'/../../parts/parsePayload.php' ?>
 
-<?php include dirname(__FILE__).'/../../parts/query.php' ?>
 <?php include dirname(__FILE__).'/../../parts/queryAdditionnal.php' ?>
 
-<?php include dirname(__FILE__).'/../../parts/queryPagination.php' ?>
+<?php include dirname(__FILE__).'/../../parts/queryEmbedRelations.php' ?>
+
+<?php include dirname(__FILE__).'/../../parts/queryEmbedRelationsCustom.php' ?>
+
+<?php include dirname(__FILE__).'/../../parts/queryFilterPrimaryKeys.php' ?>
+
+<?php include dirname(__FILE__).'/../../parts/queryFilters.php' ?>
 
 <?php include dirname(__FILE__).'/../../parts/queryPagination.php' ?>
+
+<?php include dirname(__FILE__).'/../../parts/querySelect.php' ?>
+
+<?php include dirname(__FILE__).'/../../parts/querySort.php' ?>
 
 <?php include dirname(__FILE__).'/../../parts/setFieldVisibility.php' ?>
 

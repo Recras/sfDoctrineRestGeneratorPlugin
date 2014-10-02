@@ -169,6 +169,90 @@ class sfDoctrineRestGeneratorActions extends sfActions
     return $params;
   }
 
+  public function query($params)
+  {
+    $q = Doctrine_Query::create()
+      ->from($this->model.' '.$this->model);
+
+    $this->querySelect($q, $params);
+
+    $this->queryEmbedRelations($q, $params);
+    $this->queryEmbedRelationsCustom($q, $params);
+
+    $this->queryPagination($q, $params);
+    $this->querySort($q, $params);
+
+    $this->queryFilterPrimaryKeys($q, $params);
+    $this->queryFilters($q, $params);
+
+    foreach ($params as $name => $value)
+    {
+      $q->andWhere($this->model.'.'.$name.' = ?', $value);
+    }
+
+    return $q;
+  }
+
+  /**
+   * Add joins for relations specified in the "embed_relations" config
+   *
+   * @param  Doctrine_Query  $query   The query to add joins to
+   * @param  array           &$params The filtered parameters for this request
+   */
+  public function queryEmbedRelations(Doctrine_Query $query, array &$params)
+  {
+  }
+
+  /**
+   * Add joins for relations specified in the "embed_relations_custom" config
+   *
+   * @param  Doctrine_Query  $query   The query to add joins to
+   * @param  array           &$params The filtered parameters for this request
+   */
+  public function queryEmbedRelationsCustom(Doctrine_Query $query, array &$params)
+  {
+  }
+
+  /**
+   * Filter primary keys
+   *
+   * @param  Doctrine_Query  $query   The query to add joins to
+   * @param  array           &$params The filtered parameters for this request
+   */
+  function queryFilterPrimaryKeys(Doctrine_Query $q, array &$params)
+  {
+  }
+
+  /**
+   * Filter fields
+   *
+   * @param  Doctrine_Query  $query   The query to add joins to
+   * @param  array           &$params The filtered parameters for this request
+   */
+  function queryFilters(Doctrine_Query $q, array &$params)
+  {
+  }
+
+  /**
+   * Add Select clause to query
+   *
+   * @param  Doctrine_Query  $query   The query to add joins to
+   * @param  array           &$params The filtered parameters for this request
+   */
+  function querySelect(Doctrine_Query $q, array &$params)
+  {
+  }
+
+  /**
+   * Add sort clauses from "sort_default" and "sort_custom" fields
+   *
+   * @param  Doctrine_Query  $query   The query to add joins to
+   * @param  array           &$params The filtered parameters for this request
+   */
+  public function querySort(Doctrine_Query $query, array &$params)
+  {
+  }
+
   /**
    * Execute the query for selecting a collection of objects, eventually
    * along with related objects
