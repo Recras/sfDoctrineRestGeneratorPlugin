@@ -64,6 +64,8 @@ if ($this->configuration->getValue('get.sort_custom'))
 
 <?php include dirname(__FILE__).'/../../parts/queryFilterPrimaryKeys.php' ?>
 
+<?php include dirname(__FILE__).'/../../parts/queryFilters.php' ?>
+
 <?php include dirname(__FILE__).'/../../parts/queryPagination.php' ?>
 
 <?php include dirname(__FILE__).'/../../parts/querySort.php' ?>
