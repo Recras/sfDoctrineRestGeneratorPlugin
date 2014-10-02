@@ -1,3 +1,4 @@
+<?php $embed_relations_custom = $this->configuration->getValue('get.embed_relations_custom'); ?>
 <?php if ($embed_relations_custom): ?>
   /**
    * Add joins for relations specified in the "embed_relations_custom" config

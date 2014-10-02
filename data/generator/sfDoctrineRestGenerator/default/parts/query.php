@@ -9,7 +9,6 @@
     $q = Doctrine_Query::create()
 <?php
 $display = $this->configuration->getValue('get.display');
-$embed_relations_custom = $this->configuration->getValue('get.embed_relations_custom');
 
 $fields = $display;
 foreach ($embed_relations as $relation_name)
