@@ -55,7 +55,6 @@ if ($this->configuration->getValue('get.sort_custom'))
 
 <?php include dirname(__FILE__).'/../../parts/parsePayload.php' ?>
 
-<?php include dirname(__FILE__).'/../../parts/query.php' ?>
 <?php include dirname(__FILE__).'/../../parts/queryAdditionnal.php' ?>
 
 <?php include dirname(__FILE__).'/../../parts/queryEmbedRelations.php' ?>
