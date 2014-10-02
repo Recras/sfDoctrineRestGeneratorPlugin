@@ -29,25 +29,8 @@ foreach ($embed_relations as $relation_name)
     $this->queryPagination($q, $params);
     $this->querySort($q, $params);
 
-<?php $primaryKeys = $this->getPrimaryKeys(); ?>
-<?php foreach ($primaryKeys as $primaryKey): ?>
-    if (isset($params['<?php echo $primaryKey ?>']))
-    {
-      $values = explode('<?php echo $this->configuration->getValue('default.separator', ',') ?>', $params['<?php echo $primaryKey ?>']);
+    $this->queryFilterPrimaryKeys($q, $params);
 
-      if (count($values) == 1)
-      {
-        $q->andWhere($this->model.'.<?php echo $primaryKey ?> = ?', $values[0]);
-      }
-      else
-      {
-        $q->whereIn($this->model.'.<?php echo $primaryKey ?>', $values);
-      }
-
-      unset($params['<?php echo $primaryKey ?>']);
-    }
-
-<?php endforeach; ?>
 <?php $filters = $this->configuration->getFilters() ?>
 <?php foreach ($filters as $name => $filter): ?>
 <?php if (isset($filters[$name]['multiple']) && $filters[$name]['multiple']): ?>
