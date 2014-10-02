@@ -210,6 +210,16 @@ class sfDoctrineRestGeneratorActions extends sfActions
   }
 
   /**
+   * Add Select clause to query
+   *
+   * @param  Doctrine_Query  $query   The query to add joins to
+   * @param  array           &$params The filtered parameters for this request
+   */
+  function querySelect(Doctrine_Query $q, array &$params)
+  {
+  }
+
+  /**
    * Add sort clauses from "sort_default" and "sort_custom" fields
    *
    * @param  Doctrine_Query  $query   The query to add joins to

@@ -7,21 +7,9 @@
   public function query($params)
   {
     $q = Doctrine_Query::create()
-<?php
-$display = $this->configuration->getValue('get.display');
-
-$fields = $display;
-foreach ($embed_relations as $relation_name)
-{
-  $fields[] = $relation_name.'.*';
-}
-?>
-<?php if (count($display) > 0): ?>
-<?php $display = implode(', ', $fields); ?>
-      ->select('<?php echo $display ?>')
-<?php endif; ?>
-
       ->from($this->model.' '.$this->model);
+
+    $this->querySelect($q, $params);
 
     $this->queryEmbedRelations($q, $params);
     $this->queryEmbedRelationsCustom($q, $params);
