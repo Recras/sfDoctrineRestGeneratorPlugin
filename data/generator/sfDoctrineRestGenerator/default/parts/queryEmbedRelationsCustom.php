@@ -16,7 +16,7 @@
 <?php if (!$this->isManyToManyRelation($embed_relation)): ?>
         if (in_array('<?php echo $embed_relation; ?>', $embed_relations))
         {
-            $q->leftJoin($this->model.'.<?php echo $embed_relation ?> <?php echo $embed_relation ?>');
+            $query->leftJoin($this->model.'.<?php echo $embed_relation ?> <?php echo $embed_relation ?>');
         }
 <?php endif; ?>
 <?php endforeach; ?>
