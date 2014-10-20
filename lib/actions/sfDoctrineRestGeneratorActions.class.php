@@ -252,6 +252,16 @@ class sfDoctrineRestGeneratorActions extends sfActions
   }
 
   /**
+   * Add pagination to a specified query object
+   *
+   * @param Doctrine_Query $query  The query to add pagination to
+   * @param array &$params  The parameters
+   */
+  function queryPagination(Doctrine_Query $q, array &$params)
+  {
+  }
+
+  /**
    * Add Select clause to query
    *
    * @param  Doctrine_Query  $query   The query to add joins to
