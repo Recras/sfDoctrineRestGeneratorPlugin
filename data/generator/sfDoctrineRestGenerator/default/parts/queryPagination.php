@@ -1,3 +1,9 @@
+<?php
+$max_items = $this->configuration->getValue('get.max_items');
+$pagination_custom_page_size = $this->configuration->getValue('get.pagination_custom_page_size');
+$pagination_enabled = $this->configuration->getValue('get.pagination_enabled');
+$pagination_page_size = $this->configuration->getValue('get.pagination_page_size');
+?>
 <?php if ($pagination_enabled || $max_items): ?>
   /**
    * Add pagination to a specified query object
@@ -8,12 +14,6 @@
    */
   protected function queryPagination(Doctrine_Query $query, array &$params)
   {
-<?php
-$max_items = $this->configuration->getValue('get.max_items');
-$pagination_custom_page_size = $this->configuration->getValue('get.pagination_custom_page_size');
-$pagination_enabled = $this->configuration->getValue('get.pagination_enabled');
-$pagination_page_size = $this->configuration->getValue('get.pagination_page_size');
-?>
 <?php if ($pagination_enabled): ?>
     $page_size = <?php echo $pagination_page_size; ?>;
 <?php if ($pagination_custom_page_size): ?>
