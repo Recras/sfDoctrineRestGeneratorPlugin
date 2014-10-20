@@ -12,6 +12,6 @@
 
   public function getPaginationPageSize()
   {
-    return <?php echo isset($this->config['get']['pagination_page_size']) ? (integer) $this->config['get']['pagination_page_size'] : 100 ?>;
+    return <?php echo isset($this->config['get']['pagination_page_size']) ? (integer) $this->config['get']['pagination_page_size'] : 0 ?>;
 <?php unset($this->config['get']['pagination_page_size']) ?>
   }
