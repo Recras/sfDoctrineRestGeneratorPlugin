@@ -1,3 +1,4 @@
+<?php if ($pagination_enabled || $max_items): ?>
   /**
    * Add pagination to a specified query object
    *
@@ -42,3 +43,6 @@ $pagination_page_size = $this->configuration->getValue('get.pagination_page_size
 
     return $query;
   }
+<?php else: // !($pagination_enabled || $max_items) ?>
+  /* queryPagination omitted, pagination_enabled nor $max_items set in generator config */
+<?php endif; ?>
