@@ -36,7 +36,9 @@ $pagination_page_size = $this->configuration->getValue('get.pagination_page_size
     $query->offset(($params['page'] - 1) * $page_size);
     unset($params['page']);
 
-    $query->limit($page_size);
+    if ($page_size) {
+      $query->limit($page_size);
+    }
 <?php elseif ($max_items > 0): // $pagination_enabled === false, cf. first if ?>
     $query->limit(<?php echo $max_items; ?>);
 <?php endif; ?>
