@@ -77,7 +77,7 @@ foreach ($embedded_relations_fields as $embed => $e_r_fields)
             $embedded_object = $this->configureFieldsEmbedded<?php echo $embed; ?>($embedded_object);
           }
         }
-        else
+        elseif ($object['<?php echo $embed; ?>'] != array())
         {
           $object['<?php echo $embed; ?>'] = $this->configureFieldsEmbedded<?php echo $embed; ?>($object['<?php echo $embed; ?>']);
         }
