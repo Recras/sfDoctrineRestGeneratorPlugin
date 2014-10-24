@@ -64,6 +64,8 @@ foreach ($embedded_relations_fields as $embed => $e_r_fields)
    */
   protected function configureFields()
   {
+    parent::configureFields();
+
 <?php if ($specific_configuration_directives): ?>
     foreach ($this->objects as $i => $object)
     {
