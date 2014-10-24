@@ -31,6 +31,21 @@ class sfDoctrineRestGeneratorActions extends sfActions
     return sfView::SUCCESS;
   }
 
+  /**
+   * Allows to change configure some fields of the response, based on the
+   * generator.yml configuration file. Supported configuration directives are
+   * "date_format" and "tag_name"
+   *
+   * @return  void
+   */
+  protected function configureFields()
+  {
+    //foreach ($this->objects as &$obj)
+    //{
+    //  ...
+    //}
+  }
+
   protected function createObject()
   {
     return new $this->model();
