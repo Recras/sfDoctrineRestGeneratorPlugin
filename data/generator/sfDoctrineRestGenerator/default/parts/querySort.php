@@ -1,6 +1,6 @@
 <?php $sort_custom = $this->configuration->getValue('get.sort_custom'); ?>
 <?php $sort_default = $this->configuration->getValue('get.sort_default'); ?>
-<?php if ($sort_custom || $sort_custom): ?>
+<?php if ($sort_default || $sort_custom): ?>
   /**
    * Add sort clauses from "sort_default" and "sort_custom" fields
    *
