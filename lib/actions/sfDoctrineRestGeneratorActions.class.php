@@ -265,7 +265,9 @@ class sfDoctrineRestGeneratorActions extends sfActions
 
     foreach ($params as $name => $value)
     {
-      $q->andWhere($this->model.'.'.$name.' = ?', $value);
+      if (!is_null($value)) {
+        $q->andWhere($this->model.'.'.$name.' = ?', $value);
+      }
     }
 
     return $q;
