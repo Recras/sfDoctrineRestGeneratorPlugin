@@ -81,6 +81,21 @@ class sfDoctrineRestGeneratorActions extends sfActions
     return $content;
   }
 
+  public function getCreateValidator()
+  {
+    return new sfValidatorSchema($this->getCreateValidators(), array(
+      'allow_extra_fields' => false,
+    ));
+  }
+
+  public function getCreatePostValidator()
+  {
+    return new sfValidatorSchema($this->getCreatePostValidators(), array(
+      'allow_extra_fields' => true,
+      'filter_extra_fields' => false,
+    ));
+  }
+
   /**
    * Returns the list of validators for a create request.
    * @return  array  an array of validators
@@ -88,6 +103,21 @@ class sfDoctrineRestGeneratorActions extends sfActions
   public function getCreatePostValidators()
   {
     return array();
+  }
+
+  public function getIndexValidator()
+  {
+    return new sfValidatorSchema($this->getIndexValidators(), array(
+      'allow_extra_fields' => false,
+    ));
+  }
+
+  public function getIndexPostValidator()
+  {
+    return new sfValidatorSchema($this->getIndexPostValidators(), array(
+      'allow_extra_fields' => true,
+      'filter_extra_fields' => false,
+    ));
   }
 
   /**
@@ -107,6 +137,21 @@ class sfDoctrineRestGeneratorActions extends sfActions
   protected function getSortValidators()
   {
     return array();
+  }
+
+  public function getUpdateValidator()
+  {
+    return new sfValidatorSchema($this->getUpdateValidators(), array(
+      'allow_extra_fields' => false,
+    ));
+  }
+
+  public function getUpdatePostValidator()
+  {
+    return new sfValidatorSchema($this->getUpdatePostValidators(), array(
+      'allow_extra_fields' => true,
+      'filter_extra_fields' => false,
+    ));
   }
 
   /**
@@ -343,58 +388,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
   }
 
   /**
-   * Applies a set of validators to an array of parameters
-   *
-   * @param array   $params      An array of parameters
-   * @param array   $validators  An array of validators
-   * @return array  The cleaned parameters
-   * @throw sfException
-   */
-  public function validate($params, $validators, $prefix = '')
-  {
-    $unused = array_keys($validators);
-
-    foreach ($params as $name => $value)
-    {
-      if (!isset($validators[$name]))
-      {
-        throw new sfValidatorError(new sfValidatorPass(), sprintf('Could not validate extra field "%s"', $prefix.$name));
-      }
-      else
-      {
-        if (is_array($validators[$name]))
-        {
-          // validator for a related object
-          $params[$name] = $this->validate($value, $validators[$name], $prefix.$name.'.');
-        }
-        else
-        {
-          $params[$name] = $validators[$name]->clean($value);
-        }
-
-        unset($unused[array_search($name, $unused, true)]);
-      }
-    }
-
-    // are non given values required?
-    foreach ($unused as $name)
-    {
-      try
-      {
-        if (!is_array($validators[$name]))
-        {
-          $validators[$name]->clean(null);
-        }
-      }
-      catch (sfValidatorError $e)
-      {
-        throw new sfValidatorError($e->getValidator(), sprintf('Could not validate field "%s": %s', $prefix.$name, $e->getMessage()));
-      }
-    }
-    return $params;
-  }
-
-  /**
    * Applies the creation validators to the payload posted to the service
    *
    * @param   string   $payload  A payload string
@@ -404,13 +397,9 @@ class sfDoctrineRestGeneratorActions extends sfActions
   {
     $params = $this->parsePayload($payload);
 
-    $validators = $this->getCreateValidators();
-    $params = $this->validate($params, $validators);
-
-    $postvalidators = $this->getCreatePostValidators();
-    $params = $this->postValidate($params, $postvalidators);
-
-    return $params;
+    $validator = $this->getCreateValidator();
+    $validator->setPostValidator($this->getCreatePostValidator());
+    return $validator->clean($params);
   }
 
   /**
@@ -422,13 +411,10 @@ class sfDoctrineRestGeneratorActions extends sfActions
    */
   public function validateIndex($params)
   {
-    $validators = $this->getIndexValidators();
-    $params = $this->validate($params, $validators);
+    $validator = $this->getIndexValidator();
+    $validator->setPostValidator($this->getIndexPostValidator());
 
-    $postvalidators = $this->getIndexPostValidators();
-    $params = $this->postValidate($params, $postvalidators);
-
-    return $params;
+    return $validator->clean($params);
   }
 
   /**
@@ -440,13 +426,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    */
   public function validateShow($params)
   {
-    $validators = $this->getIndexValidators();
-    $params = $this->validate($params, $validators);
-
-    $postvalidators = $this->getIndexPostValidators();
-    $params = $this->postValidate($params, $postvalidators);
-
-    return $params;
+    return $this->validateIndex($params);
   }
 
   /**
@@ -458,12 +438,8 @@ class sfDoctrineRestGeneratorActions extends sfActions
   {
     $params = $this->parsePayload($payload);
 
-    $validators = $this->getUpdateValidators();
-    $params = $this->validate($params, $validators);
-
-    $postvalidators = $this->getUpdatePostValidators();
-    $params = $this->postValidate($params, $postvalidators);
-
-    return $params;
+    $validator = $this->getUpdateValidator();
+    $validator->setPostValidator($this->getUpdatePostValidator());
+    return $validator->clean($params);
   }
 }
