@@ -907,6 +907,7 @@ class sfDoctrineRestGenerator extends sfGenerator
     }
 
     $options[] = '\'required\' => false';
+    $options[] = '\'empty_value\' => null';
     return sprintf('array(%s)', implode(', ', $options));
   }
 
