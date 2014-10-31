@@ -18,7 +18,7 @@ $pagination_page_size = $this->configuration->getValue('get.pagination_page_size
     $page_size = <?php echo $pagination_page_size; ?>;
 <?php if ($pagination_custom_page_size): ?>
 
-    if (isset($params['page_size']))
+    if (array_key_exists('page_size', $params))
     {
       $page_size = $params['page_size'];
       unset($params['page_size']);
