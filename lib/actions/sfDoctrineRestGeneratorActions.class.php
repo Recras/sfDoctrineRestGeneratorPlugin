@@ -60,6 +60,9 @@ class sfDoctrineRestGeneratorActions extends sfActions
     }
 
     $this->queryFetchOne($params);
+    if ($format = $this->getFormat()) {
+      $request->setRequestFormat($format);
+    }
     $this->forward404Unless(is_array($this->objects[0]));
 
     $this->formatObjects($params);
