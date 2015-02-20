@@ -212,7 +212,8 @@ class sfDoctrineRestGeneratorActions extends sfActions
       $this->output = $serializer->serialize($this->objects, $this->model);
     } else {
       $this->output = $serializer->serialize($this->objects[0], $this->model, false);
-    }
+	 }
+	 $this->getRequest()->setRequestFormat('html');
   }
 
   /**
