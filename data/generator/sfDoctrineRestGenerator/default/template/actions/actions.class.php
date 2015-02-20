@@ -69,7 +69,5 @@ if ($this->configuration->getValue('get.sort_custom'))
 
 <?php include dirname(__FILE__).'/../../parts/setFieldVisibility.php' ?>
 
-<?php include dirname(__FILE__).'/../../parts/showAction.php' ?>
-
 <?php include dirname(__FILE__).'/../../parts/updateAction.php' ?>
 }
