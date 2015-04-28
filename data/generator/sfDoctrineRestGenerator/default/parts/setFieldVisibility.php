@@ -13,9 +13,9 @@ $embed_relations = $this->configuration->getValue('get.embed_relations');
 $object_additional_fields = $this->configuration->getValue('get.object_additional_fields');
 ?><?php if (count($display) > 0): ?>
 <?php if (count($hide) > 0): ?>
-    $accepted_keys = <?php echo var_export(array_flip(array_merge(array_diff($display, $hide), $embed_relations, $object_additional_fields)), true); ?>;
+    $accepted_keys = <?php echo var_export(array_flip(array_merge(array_diff($display, $hide), $embed_relations, $embed_relations_custom, $object_additional_fields)), true); ?>;
 <?php else: ?>
-    $accepted_keys = <?php echo var_export(array_flip(array_merge($display, $embed_relations, $object_additional_fields)), true); ?>;
+    $accepted_keys = <?php echo var_export(array_flip(array_merge($display, $embed_relations, $embed_relations_custom, $object_additional_fields)), true); ?>;
 <?php endif; ?>
 
     foreach ($this->objects as $i => $object)

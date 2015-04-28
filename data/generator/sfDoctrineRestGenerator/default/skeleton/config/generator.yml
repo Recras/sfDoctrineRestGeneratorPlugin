@@ -16,6 +16,8 @@ generator:
 #        display:                       []      # list here the fields to render in the response
 #        embed_relations:               []      # list here relations to embed in the response
 #        embed_relations_custom:        []      # list here relations to embed in the response if the embed request parameter is set
+#        embed_relations_display:               # list here the fields of embedded relations to be selected
+#          Category:
 #        embedded_relations_hide:
 #          Category:                    [id]    # you can hide fields inside a certain embedded relation
 #        global_additional_fields:      []      # list here additionnal calculated global fields

@@ -377,6 +377,23 @@ feed like:
     ...
 
 
+#### embedded_relations_display
+
+You may want to show only specific fields in the result. These fields can be
+configured with the `embedded_relations_display` configuration option:
+
+            config:
+              get:
+                embedded_relations_display:
+                  PostCategory:
+                    - name
+                    - description
+
+Note: this configuration option only has effect when the `display` option is
+set. When there is no `embedded_relations_display` option for a certain embed,
+all fields will be selected.
+
+
 #### embedded_relations_hide
 
 You may want to hide some fields from the embedded relations. For instance,
