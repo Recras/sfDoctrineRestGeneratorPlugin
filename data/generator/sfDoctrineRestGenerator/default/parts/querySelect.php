@@ -10,11 +10,6 @@
 $display = $this->configuration->getValue('get.display');
 
 $fields = $display;
-$embed_relations = $this->configuration->getValue('get.embed_relations');
-foreach ($embed_relations as $relation_name)
-{
-  $fields[] = $relation_name.'.*';
-}
 ?>
 <?php if (count($display) > 0): ?>
 <?php $display = implode(', ', $fields); ?>
