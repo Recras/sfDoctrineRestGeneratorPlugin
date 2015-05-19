@@ -395,22 +395,27 @@ class sfDoctrineRestGeneratorActions extends sfActions
   {
     $unused = array_keys($validators);
 
+    $validatorSchema = new sfValidatorErrorSchema(new sfValidatorPass);
     foreach ($params as $name => $value)
     {
       if (!isset($validators[$name]))
       {
-        throw new sfValidatorError(new sfValidatorPass(), sprintf('Could not validate extra field "%s"', $prefix.$name));
+        $validatorSchema->addError(new sfValidatorError(new sfValidatorPass(), sprintf('Could not validate extra field')), $prefix.$name);
       }
       else
       {
-        if (is_array($validators[$name]))
-        {
-          // validator for a related object
-          $params[$name] = $this->validate($value, $validators[$name], $prefix.$name.'.');
-        }
-        else
-        {
-          $params[$name] = $validators[$name]->clean($value);
+        try {
+          if (is_array($validators[$name]))
+          {
+            // validator for a related object
+            $params[$name] = $this->validate($value, $validators[$name], $prefix.$name.'.');
+          }
+          else
+          {
+            $params[$name] = $validators[$name]->clean($value);
+          }
+        } catch (sfValidatorError $e) {
+          $validatorSchema->addError($e, $prefix.$name);
         }
 
         unset($unused[array_search($name, $unused, true)]);
@@ -429,8 +434,12 @@ class sfDoctrineRestGeneratorActions extends sfActions
       }
       catch (sfValidatorError $e)
       {
-        throw new sfValidatorError($e->getValidator(), sprintf('Could not validate field "%s": %s', $prefix.$name, $e->getMessage()));
+        $validatorSchema->addError($e, $prefix.$name);
       }
+    }
+
+    if (count($validatorSchema) > 0) {
+      throw $validatorSchema;
     }
     return $params;
   }
