@@ -177,6 +177,18 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->getResponse()->setStatusCode(406);
     $serializer = $this->getSerializer();
     $this->getResponse()->setContentType($serializer->getContentType());
+    if ($e instanceof sfValidatorErrorSchema)
+    {
+      $error = array();
+      foreach ($e->getNamedErrors() as $name => $err) {
+        $error[] = array(
+          'field' => $name,
+          'message' => $err->getMessage(),
+        );
+      }
+      $this->output = $serializer->serialize($error);
+      return $this->renderText($this->output);
+    }
     $error = $e->getMessage();
 
     // event filter to enable customisation of the error message.
