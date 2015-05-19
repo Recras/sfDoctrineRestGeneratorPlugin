@@ -186,6 +186,11 @@ class sfDoctrineRestGeneratorActions extends sfActions
           'message' => $err->getMessage(),
         );
       }
+      foreach ($e->getGlobalErrors() as $err) {
+        $error[] = array(
+          'message' => $err->getMessage(),
+        );
+      }
       $this->output = $serializer->serialize($error);
       return $this->renderText($this->output);
     }
