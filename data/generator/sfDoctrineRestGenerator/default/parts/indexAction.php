@@ -20,7 +20,7 @@
       $format = $this->getFormat();
       $params = $this->validateIndex($params);
     }
-    catch (Exception $e)
+    catch (sfValidatorError $e)
     {
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);

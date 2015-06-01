@@ -18,7 +18,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
     {
       $params = $this->validateCreate($content);
     }
-    catch (Exception $e)
+    catch (sfValidatorError $e)
     {
       return $this->handleException($e);
     }
@@ -53,7 +53,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
       $format = $this->getFormat();
       $params = $this->validateShow($params);
     }
-    catch (Exception $e)
+    catch (ExcsfValidatorError $e)
     {
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);

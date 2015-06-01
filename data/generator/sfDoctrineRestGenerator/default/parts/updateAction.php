@@ -14,7 +14,7 @@
     {
       $params = $this->validateUpdate($content);
     }
-    catch (Exception $e)
+    catch (sfValidatorError $e)
     {
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);
