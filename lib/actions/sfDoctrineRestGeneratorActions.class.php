@@ -212,8 +212,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
       $this->output = $serializer->serialize($result);
     }
 
-    $this->setTemplate('index');
-    return sfView::SUCCESS;
+    return $this->renderText($this->output);
   }
 
   /**
