@@ -68,7 +68,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->formatObjects($params);
 
     $this->outputObjects(false);
-    unset($this->objects);
   }
 
   /**
