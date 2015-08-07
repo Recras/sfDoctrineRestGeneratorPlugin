@@ -70,6 +70,35 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->outputObjects(false);
   }
 
+  public function executeUpdate(sfWebRequest $request)
+  {
+    $this->forward404Unless($request->isMethod(sfRequest::PUT));
+    $content = $this->getContent();
+
+    $request->setRequestFormat('html');
+
+    try
+    {
+      $params = $this->validateUpdate($content);
+    }
+    catch (sfValidatorError $e)
+    {
+      $this->getResponse()->setStatusCode(406);
+      return $this->handleException($e);
+    }
+
+    // retrieve the object
+    $requestparams = $request->getParameterHolder()->getAll();
+    $requestparams = $this->cleanupParameters($requestparams);
+    $this->object = $this->query($requestparams)->fetchOne();
+    $this->forward404Unless($this->object);
+
+    // update and save it
+    $this->updateObjectFromParameters($params);
+
+    return $this->doSave();
+  }
+
   /**
    * Allows to change configure some fields of the response, based on the
    * generator.yml configuration file. Supported configuration directives are
