@@ -100,6 +100,26 @@ class sfDoctrineRestGeneratorActions extends sfActions
   }
 
   /**
+   * Removes an object, based on its
+   * primary key
+   * @param   sfWebRequest   $request a request object
+   * @return  string
+   */
+  public function executeDelete(sfWebRequest $request)
+  {
+    $this->forward404Unless($request->isMethod(sfRequest::DELETE));
+
+    // retrieve the object
+    $requestparams = $request->getParameterHolder()->getAll();
+    $requestparams = $this->cleanupParameters($requestparams);
+    $this->object = $this->query($requestparams)->fetchOne();
+    $this->forward404Unless($this->object);
+
+    $this->object->delete();
+    return sfView::NONE;
+  }
+
+  /**
    * Allows to change configure some fields of the response, based on the
    * generator.yml configuration file. Supported configuration directives are
    * "date_format" and "tag_name"
