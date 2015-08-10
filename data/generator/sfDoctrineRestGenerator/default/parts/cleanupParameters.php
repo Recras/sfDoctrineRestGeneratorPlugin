@@ -9,6 +9,7 @@
     unset($params['sf_format']);
     unset($params['module']);
     unset($params['action']);
+    unset($params['content']);
 
     foreach ($params as $name => $value)
     {
