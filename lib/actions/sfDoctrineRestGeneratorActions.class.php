@@ -309,8 +309,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
 
   public function query($params)
   {
-    $q = Doctrine_Query::create()
-      ->from($this->model.' '.$this->model);
+    $q = $this->queryBase($params);
 
     $this->querySelect($q, $params);
 
@@ -329,6 +328,12 @@ class sfDoctrineRestGeneratorActions extends sfActions
     }
 
     return $q;
+  }
+
+  public function queryBase(array &$params)
+  {
+    return Doctrine_Query::create()
+      ->from($this->model.' '.$this->model);
   }
 
   /**
