@@ -5,7 +5,7 @@
 protected function getSortValidators()
 {
   $validators['sort_by'] = new sfValidatorChoice(array(
-    'choices' => <?php echo var_export($this->table->getColumnNames()) ?>,
+    'choices' => <?php echo var_export($this->table->getColumnNames(), true)?>,
     'required' => false,
   ));
   $validators['sort_order'] = new sfValidatorChoice(array(
