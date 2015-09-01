@@ -8,7 +8,7 @@
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  public function queryEmbedRelations(Doctrine_Query $query, array &$params)
+  public function queryEmbedRelations(Doctrine_Query_Abstract $query, array &$params)
   {
 <?php foreach ($embed_relations as $embed_relation): ?>
 <?php if (!$this->isManyToManyRelation($embed_relation)): ?>

@@ -4,7 +4,7 @@
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  function queryFilterPrimaryKeys(Doctrine_Query $q, array &$params)
+  function queryFilterPrimaryKeys(Doctrine_Query_Abstract $q, array &$params)
   {
 <?php $primaryKeys = $this->getPrimaryKeys(); ?>
 <?php foreach ($primaryKeys as $primaryKey): ?>

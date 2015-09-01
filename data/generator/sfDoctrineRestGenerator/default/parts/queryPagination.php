@@ -12,7 +12,7 @@ $pagination_page_size = $this->configuration->getValue('get.pagination_page_size
    * @param array &$params  The parameters
    * @return Doctrine_Query  The query, amended with pagination
    */
-  public function queryPagination(Doctrine_Query $query, array &$params)
+  public function queryPagination(Doctrine_Query_Abstract $query, array &$params)
   {
 <?php if ($pagination_enabled): ?>
     $page_size = <?php echo $pagination_page_size; ?>;

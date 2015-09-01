@@ -342,7 +342,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  public function queryEmbedRelations(Doctrine_Query $query, array &$params)
+  public function queryEmbedRelations(Doctrine_Query_Abstract $query, array &$params)
   {
   }
 
@@ -352,7 +352,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  public function queryEmbedRelationsCustom(Doctrine_Query $query, array &$params)
+  public function queryEmbedRelationsCustom(Doctrine_Query_Abstract $query, array &$params)
   {
   }
 
@@ -362,7 +362,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  function queryFilterPrimaryKeys(Doctrine_Query $q, array &$params)
+  function queryFilterPrimaryKeys(Doctrine_Query_Abstract $q, array &$params)
   {
   }
 
@@ -372,7 +372,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  function queryFilters(Doctrine_Query $q, array &$params)
+  function queryFilters(Doctrine_Query_Abstract $q, array &$params)
   {
   }
 
@@ -382,7 +382,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * @param Doctrine_Query $query  The query to add pagination to
    * @param array &$params  The parameters
    */
-  public function queryPagination(Doctrine_Query $q, array &$params)
+  public function queryPagination(Doctrine_Query_Abstract $q, array &$params)
   {
   }
 
@@ -392,7 +392,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  function querySelect(Doctrine_Query $q, array &$params)
+  function querySelect(Doctrine_Query_Abstract $q, array &$params)
   {
   }
 
@@ -402,7 +402,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  public function querySort(Doctrine_Query $query, array &$params)
+  public function querySort(Doctrine_Query_Abstract $query, array &$params)
   {
   }
 

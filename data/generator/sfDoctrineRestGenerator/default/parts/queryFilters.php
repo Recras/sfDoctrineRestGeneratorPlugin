@@ -4,7 +4,7 @@
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  function queryFilters(Doctrine_Query $q, array &$params)
+  function queryFilters(Doctrine_Query_Abstract $q, array &$params)
   {
 <?php $filters = $this->configuration->getFilters() ?>
 <?php foreach ($filters as $name => $filter): ?>

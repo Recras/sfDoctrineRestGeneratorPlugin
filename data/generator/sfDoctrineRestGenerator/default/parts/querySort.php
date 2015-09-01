@@ -7,7 +7,7 @@
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           &$params The filtered parameters for this request
    */
-  function querySort(Doctrine_Query $query, array &$params)
+  function querySort(Doctrine_Query_Abstract $query, array &$params)
   {
 <?php if ($sort_default && count($sort_default) == 2): ?>
     $sort = '<?php echo $sort_default[0] ?> <?php echo $sort_default[1] ?>';

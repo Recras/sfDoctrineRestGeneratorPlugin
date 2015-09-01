@@ -8,7 +8,7 @@
    * @param  Doctrine_Query  $query   The query to add joins to
    * @param  array           $params  The filtered parameters for this request
    */
-  public function queryEmbedRelationsCustom(Doctrine_Query $query, array &$params)
+  public function queryEmbedRelationsCustom(Doctrine_Query_Abstract $query, array &$params)
   {
     if (isset($params['embed']))
     {
