@@ -12,8 +12,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->forward404Unless($request->isMethod(sfRequest::POST));
     $content = $this->getContent();
 
-    $request->setRequestFormat('html');
-
     try
     {
       $params = $this->validateCreate($content);
@@ -44,7 +42,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
     // notify an event before the action's body starts
     $this->dispatcher->notify(new sfEvent($this, 'sfDoctrineRestGenerator.get.pre', array('params' => $params)));
 
-    $request->setRequestFormat('html');
     $this->setTemplate('index');
     $params = $this->cleanupParameters($params);
 
@@ -74,8 +71,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
   {
     $this->forward404Unless($request->isMethod(sfRequest::PUT));
     $content = $this->getContent();
-
-    $request->setRequestFormat('html');
 
     try
     {
