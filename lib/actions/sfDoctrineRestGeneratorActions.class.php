@@ -215,6 +215,28 @@ class sfDoctrineRestGeneratorActions extends sfActions
     return $this->getCreateValidators();
   }
 
+  protected function formatValidatorErrorSchema(sfValidatorErrorSchema $errors)
+  {
+    $error = array();
+    foreach ($errors->getErrors() as $name => $err)
+    {
+      $error[] = $this->formatValidatorError($name, $err);
+    }
+    return $error;
+  }
+  protected function formatValidatorError($name, sfValidatorError $err)
+  {
+    $error = array(
+      'field' => $name,
+      'message' => $err->getMessage(),
+    );
+    if ($err instanceof sfValidatorErrorSchema) {
+      $error['errors'] = $this->formatValidatorErrorSchema($err);
+    } else {
+      $error['parameters'] = $err->getArguments(true);
+    }
+    return $error;
+  }
   /**
    * Handle an exception
    * @param  Exception  exception
@@ -227,19 +249,8 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->getResponse()->setContentType($serializer->getContentType());
     if ($e instanceof sfValidatorErrorSchema)
     {
-      $error = array();
-      foreach ($e->getNamedErrors() as $name => $err) {
-        $error[] = array(
-          'field' => $name,
-          'message' => $err->getMessage(),
-        );
-      }
-      foreach ($e->getGlobalErrors() as $err) {
-        $error[] = array(
-          'message' => $err->getMessage(),
-        );
-      }
-      $this->output = $serializer->serialize($error);
+      $err = $this->formatValidatorErrorSchema($e);
+      $this->output = $serializer->serialize($err);
       return $this->renderText($this->output);
     }
     $error = $e->getMessage();
