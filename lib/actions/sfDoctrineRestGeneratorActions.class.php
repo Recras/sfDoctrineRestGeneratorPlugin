@@ -231,7 +231,12 @@ class sfDoctrineRestGeneratorActions extends sfActions
       'message' => $err->getMessage(),
     );
     if ($err instanceof sfValidatorErrorSchema) {
-      $error['errors'] = $this->formatValidatorErrorSchema($err);
+      if (count($err->getNamedErrors()) == 0 && count($err->getGlobalErrors()) == 1) {
+        $e = $err->getErrors();
+        $error['parameters'] = $e[0]->getArguments(true);
+      } else {
+        $error['errors'] = $this->formatValidatorErrorSchema($err);
+      }
     } else {
       $error['parameters'] = $err->getArguments(true);
     }
