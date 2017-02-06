@@ -72,6 +72,12 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->forward404Unless($request->isMethod(sfRequest::PUT));
     $content = $this->getContent();
 
+    // retrieve the object
+    $requestparams = $request->getParameterHolder()->getAll();
+    $requestparams = $this->cleanupParameters($requestparams);
+    $this->object = $this->query($requestparams)->fetchOne();
+    $this->forward404Unless($this->object);
+
     try
     {
       $params = $this->validateUpdate($content);
@@ -81,12 +87,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);
     }
-
-    // retrieve the object
-    $requestparams = $request->getParameterHolder()->getAll();
-    $requestparams = $this->cleanupParameters($requestparams);
-    $this->object = $this->query($requestparams)->fetchOne();
-    $this->forward404Unless($this->object);
 
     // update and save it
     $this->updateObjectFromParameters($params);
