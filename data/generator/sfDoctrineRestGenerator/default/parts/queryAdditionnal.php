@@ -53,7 +53,7 @@ $pk = current($this->getPrimaryKeys());
 
     foreach ($this->objects as $key => $object)
     {
-      if ($object['<?php echo $pk ?>'] && isset($related[$object['<?php echo $pk ?>']]))
+      if ($object['<?php echo $pk ?>'] && isset($related[$object['<?php echo $pk ?>']]) && !array_key_exists($relation_name, $this->objects[$key]))
       {
         $this->objects[$key][$relation_name] = $related[$object['<?php echo $pk ?>']];
       }
