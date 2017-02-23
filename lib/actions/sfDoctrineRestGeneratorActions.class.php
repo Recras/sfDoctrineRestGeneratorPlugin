@@ -62,8 +62,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
     }
     $this->forward404Unless(is_array($this->objects[0]));
 
-    $this->embedManyToManyRelations($params);
-
     $this->formatObjects($params);
 
     $this->outputObjects(false);
@@ -146,10 +144,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
     $this->setTemplate('index');
 
     return sfView::SUCCESS;
-  }
-
-  protected function embedManyToManyRelations($params)
-  {
   }
 
   protected function getContent()

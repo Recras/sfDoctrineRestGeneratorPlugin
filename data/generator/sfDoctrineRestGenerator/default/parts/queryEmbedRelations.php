@@ -11,7 +11,6 @@
   public function queryEmbedRelations(Doctrine_Query_Abstract $query, array &$params)
   {
 <?php foreach ($embed_relations as $embed_relation): ?>
-<?php if (!$this->isManyToManyRelation($embed_relation)): ?>
     $query->leftJoin($this->model.'.<?php echo $embed_relation ?> <?php echo $embed_relation ?>');
 <?php if ($display): ?>
 <?php if (isset($embed_relations_display[$embed_relation])): ?>
@@ -20,7 +19,6 @@
 <?php endforeach; ?>
 <?php else: ?>
     $query->addSelect('<?php echo $embed_relation; ?>.*');
-<?php endif; ?>
 <?php endif; ?>
 <?php endif; ?>
 <?php endforeach; ?>
