@@ -19,8 +19,6 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends <?php echo $t
 
 <?php include dirname(__FILE__).'/../../parts/configureFields.php' ?>
 
-<?php include dirname(__FILE__).'/../../parts/embedManyToManyRelations.php' ?>
-
 <?php include dirname(__FILE__).'/../../parts/formatObjects.php' ?>
 
 <?php include dirname(__FILE__).'/../../parts/getCreateValidators.php' ?>

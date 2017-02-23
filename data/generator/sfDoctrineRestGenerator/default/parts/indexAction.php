@@ -37,8 +37,6 @@
       $this->forward404();
     }
 
-    $this->embedManyToManyRelations($params);
-
     $this->formatObjects($params);
 
     $this->outputObjects(true);
