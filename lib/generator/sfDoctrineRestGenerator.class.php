@@ -261,11 +261,9 @@ class sfDoctrineRestGenerator extends sfGenerator
       $table = $object;
     }
 
-    $parentModel = $this->getParentModel($object);
-    $parentColumns = $parentModel ? array_keys(Doctrine_Core::getTable($parentModel)->getColumns()) : array();
     $columns = array();
 
-    foreach (array_diff(array_keys($table->getColumns()), $parentColumns) as $name)
+    foreach (array_keys($table->getColumns()) as $name)
     {
       $columns[] = new sfDoctrineColumn($name, $table);
     }
