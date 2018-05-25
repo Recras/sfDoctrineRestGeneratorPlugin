@@ -295,11 +295,16 @@ class sfDoctrineRestGeneratorActions extends sfActions
    * Applies a set of validators to an array of parameters
    *
    * @param array   $params      An array of parameters
-   * @param array   $validators  An array of validators
+   * @param array|sfValidatorBase   $validators  An array of sfValidatorBase objects, or a single sfValidatorBase
    * @throw sfException
    */
   public function postValidate($params, $validators, $prefix = '')
   {
+    if (is_object($validators) && $validators instanceof sfValidatorSchema)
+    {
+      return $validators->clean($params);
+    }
+
     foreach ($params as $name => $value)
     {
       if (isset($validators[$name]))
