@@ -493,6 +493,31 @@ generator generates this code as comments):
       $this->objects[$item] = $array;
     }
 
+It's also possible to specify which method should be called to add the field:
+
+```yaml
+config:
+  get:
+    object_additional_fields:
+      is_deleted: additionalFieldIsDeleted
+```
+
+The specified function should have this signature:
+```php
+function additionalFieldIsDeleted(array $object, array $parameters): mixed
+{
+  // $object contains the object as it currently is formatted
+  // $parameters contains the request parameters from this API call
+  // return the value you'd like field "is_deleted" to have
+}
+```
+
+and the specified function will be called in this way:
+```php
+// in formatObjects:
+$this->objects[$key]['is_deleted'] = $this->additionalFieldIsDeleted($this->objects[$key], $parameters);
+```
+
 
 #### pagination_enabled
 
