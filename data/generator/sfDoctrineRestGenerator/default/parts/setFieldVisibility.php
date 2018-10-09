@@ -10,7 +10,13 @@
 $display = $this->configuration->getValue('get.display');
 $hide = $this->configuration->getValue('get.hide');
 $embed_relations = $this->configuration->getValue('get.embed_relations');
-$object_additional_fields = $this->configuration->getValue('get.object_additional_fields');
+$additional_fields = $this->configuration->getValue('get.object_additional_fields');
+$object_additional_fields = array_map(function($key, $value) {
+    if (is_numeric($key)) {
+        return $value;
+    }
+    return $key;
+}, array_keys($additional_fields), array_values($additional_fields));
 ?><?php if (count($display) > 0): ?>
 <?php if (count($hide) > 0): ?>
     $accepted_keys = <?php echo var_export(array_flip(array_merge(array_diff($display, $hide), $embed_relations, $embed_relations_custom, $object_additional_fields)), true);?>;
