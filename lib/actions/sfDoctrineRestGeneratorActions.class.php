@@ -20,6 +20,10 @@ class sfDoctrineRestGeneratorActions extends sfActions
     {
       return $this->handleException($e);
     }
+    catch (sfDRGUnserializeException $e)
+    {
+      return $this->handleException($e);
+    }
 
     $this->object = $this->createObject();
     $this->updateObjectFromParameters($params);
@@ -55,6 +59,10 @@ class sfDoctrineRestGeneratorActions extends sfActions
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);
     }
+    catch (sfDRGUnserializeException $e)
+    {
+      return $this->handleException($e);
+    }
 
     $this->queryFetchOne($params);
     if ($format = $this->getFormat()) {
@@ -85,6 +93,10 @@ class sfDoctrineRestGeneratorActions extends sfActions
     catch (sfValidatorError $e)
     {
       $this->getResponse()->setStatusCode(406);
+      return $this->handleException($e);
+    }
+    catch (sfDRGUnserializeException $e)
+    {
       return $this->handleException($e);
     }
 

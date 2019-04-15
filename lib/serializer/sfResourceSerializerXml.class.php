@@ -27,7 +27,7 @@ class sfResourceSerializerXml extends sfResourceSerializer
 
     if (empty($payload))
     {
-      throw new sfException("Empty payload, can't unserialize it.");
+      throw new sfDRGUnserializeException("Empty payload, can't unserialize it.");
     }
 
     // Try to parse the XML
@@ -49,7 +49,7 @@ class sfResourceSerializerXml extends sfResourceSerializer
       }
 
       libxml_clear_errors();
-      throw new sfException("XML parsing error(s): \n".$exception_message);
+      throw new sfDRGUnserializeException("XML parsing error(s): \n".$exception_message);
     }
 
     $return = $this->unserializeToArray($xml);

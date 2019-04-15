@@ -14,6 +14,11 @@ class sfResourceSerializerJson extends sfResourceSerializer
 
   public function unserialize($payload)
   {
-    return json_decode($payload, true);
+    $output = json_decode($payload, true);
+    if (json_last_error() !== JSON_ERROR_NONE)
+    {
+      throw new sfDRGUnserializeException("JSON parsing error: ". json_last_error_msg());
+    }
+    return $output;
   }
 }

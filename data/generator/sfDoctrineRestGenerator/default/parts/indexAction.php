@@ -24,6 +24,10 @@
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);
     }
+    catch (sfDRGUnserializeException $e)
+    {
+      return $this->handleException($e);
+    }
 
     $this->queryExecute($params);
     $isset_pk = null;
