@@ -14,7 +14,16 @@ class sfResourceSerializerYaml extends sfResourceSerializer
 
   public function unserialize($payload)
   {
-    $return = sfYaml::load($payload);
+    try
+    {
+      $return = sfYaml::load($payload);
+    }
+    catch (InvalidArgumentException $e)
+    {
+      $err = new sfDRGUnserializeException("YAML parsing error: " . $e->getMessage());
+      $err->setWrappedException($e);
+      throw $err;
+    }
 
     if (is_array($return))
     {
