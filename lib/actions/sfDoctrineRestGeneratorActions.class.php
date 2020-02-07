@@ -2,6 +2,12 @@
 
 class sfDoctrineRestGeneratorActions extends sfActions
 {
+  /** @var array[] */
+  protected $objects = [];
+
+  /** @var array */
+  protected $_payload_array;
+
   /**
    * Creates a <?php echo $this->getModelClass() ?> object
    * @param   sfWebRequest   $request a request object
