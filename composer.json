@@ -3,7 +3,7 @@
 	"description": "Fork of sfDoctrineRestGeneratorPlugin",
 	"license": "MIT",
 	"require": {
-		"lexpress/symfony1": "*"
+		"recras/symfony1": "*"
 	},
 	"type": "library",
 	"autoload": {
