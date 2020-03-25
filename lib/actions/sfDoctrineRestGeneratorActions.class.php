@@ -258,7 +258,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
   /**
    * Handle an exception
    * @param  Exception  exception
-   * @return sfView::SUCCESS;
+   * @return string
    */
   public function handleException(Exception $e)
   {
