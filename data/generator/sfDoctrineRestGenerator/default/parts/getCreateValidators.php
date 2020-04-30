@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   /**
    * Returns the list of validators for a create request.
    * @return  array  an array of validators

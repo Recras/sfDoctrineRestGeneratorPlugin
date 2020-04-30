@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   /**
    * Manages the visibility of fields in record collections and in relations.
    * This method will hide some fields, based on the configuration file

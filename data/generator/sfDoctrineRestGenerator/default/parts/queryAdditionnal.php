@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
 <?php $object_additional_fields = $this->configuration->getValue('get.object_additional_fields'); ?>
 <?php foreach ($object_additional_fields as $field): ?>
 

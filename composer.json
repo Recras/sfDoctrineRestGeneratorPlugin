@@ -8,5 +8,12 @@
 	"type": "library",
 	"autoload": {
 		"classmap": ["lib"] 
+	},
+	"require-dev": {
+		"recras/doctrine1": "*",
+		"phpstan/phpstan": "0.12.19"
+	},
+	"autoload-dev": {
+		"classmap": ["stubs"]
 	}
 }

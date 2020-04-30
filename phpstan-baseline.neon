@@ -1,0 +1,47 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to an undefined property sfDoctrineRestGenerator\\:\\:\\$table\\.$#"
+			count: 1
+			path: data/generator/sfDoctrineRestGenerator/default/parts/getSortValidators.php
+
+		-
+			message: "#^Undefined variable\\: \\$embed_relations_custom$#"
+			count: 2
+			path: data/generator/sfDoctrineRestGenerator/default/parts/setFieldVisibility.php
+
+		-
+			message: "#^Access to an undefined property sfDoctrineRestGenerator\\:\\:\\$table\\.$#"
+			count: 5
+			path: lib/generator/sfDoctrineRestGenerator.class.php
+
+		-
+			message: "#^Call to static method underscore\\(\\) on an unknown class sfRestInflector\\.$#"
+			count: 1
+			path: lib/generator/sfDoctrineRestGenerator.class.php
+
+		-
+			message: "#^Instantiated class sfDoctrineColumn not found\\.$#"
+			count: 1
+			path: lib/generator/sfDoctrineRestGenerator.class.php
+
+		-
+			message: "#^Call to an undefined method sfDoctrineRestGenerator\\:\\:renderField\\(\\)\\.$#"
+			count: 1
+			path: lib/generator/sfDoctrineRestGenerator.class.php
+
+		-
+			message: "#^Undefined variable\\: \\$name$#"
+			count: 1
+			path: lib/task/sfDoctrineRestGenerateModuleTask.class.php
+
+		-
+			message: "#^Undefined variable\\: \\$options$#"
+			count: 1
+			path: lib/task/sfDoctrineRestGenerateModuleTask.class.php
+
+		-
+			message: "#^Access to an undefined property sfDoctrineRestGenerateModuleTask\\:\\:\\$constants\\.$#"
+			count: 1
+			path: lib/task/sfDoctrineRestGenerateModuleTask.class.php
+

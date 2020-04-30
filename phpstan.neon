@@ -1,0 +1,26 @@
+parameters:
+    paths:
+        - lib
+        - data
+    excludes_analyse:
+        - data/generator/sfDoctrineRestGenerator/default/skeleton/
+    level: 0
+    ignoreErrors:
+        -
+            message: "#^Using \\$this outside a class\\.$#"
+            paths:
+                - data/generator/sfDoctrineRestGenerator/default/parts/
+                - data/generator/sfDoctrineRestGenerator/default/template/actions/
+        -
+            message: "#^Access to protected property sfDoctrineRestGenerator::#"
+            paths:
+                - data/generator/sfDoctrineRestGenerator/default/parts/
+                - data/generator/sfDoctrineRestGenerator/default/template/actions/
+        -
+            message: "#^Call to protected method [a-zA-Z_]*\\(\\) of class sfDoctrineRestGenerator\\.$#"
+            path: data/generator/sfDoctrineRestGenerator/default/parts/
+        -
+            message: "#^Undefined variable: \\$this$#"
+            paths:
+                - data/generator/sfDoctrineRestGenerator/default/parts/
+                - data/generator/sfDoctrineRestGenerator/default/template/actions/

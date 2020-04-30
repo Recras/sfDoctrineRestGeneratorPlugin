@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   public function getSortCustom()
   {
     return <?php echo $this->asPhp(isset($this->config['get']['sort_custom']) ? $this->config['get']['sort_custom'] : false) ?>;

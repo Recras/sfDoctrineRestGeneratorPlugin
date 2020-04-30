@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
 <?php $sort_custom = $this->configuration->getValue('get.sort_custom'); ?>
 <?php $sort_default = $this->configuration->getValue('get.sort_default'); ?>
 <?php if ($sort_default || $sort_custom): ?>

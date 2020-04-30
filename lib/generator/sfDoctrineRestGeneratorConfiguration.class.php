@@ -1,9 +1,9 @@
 <?php
 
-class sfDoctrineRestGeneratorConfiguration
+abstract class sfDoctrineRestGeneratorConfiguration
 {
-  protected
-    $configuration = array();
+  /** @var array<string,array<string,mixed>> */
+  protected $configuration = array();
 
   /**
    * Constructor.
@@ -13,7 +13,32 @@ class sfDoctrineRestGeneratorConfiguration
     $this->compile();
   }
 
-  protected function compile()
+  abstract public function getFieldsDefault();
+  abstract public function getEmbeddedRelationsFieldsDefault();
+  abstract public function getFormatsEnabled();
+  abstract public function getFormatsStrict();
+  abstract public function getSeparator();
+  abstract public function getAdditionalParams();
+  abstract public function getDefaultFormat();
+  abstract public function getDisplay();
+  abstract public function getEmbedRelations();
+  abstract public function getEmbedRelationsCustom();
+  abstract public function getEmbedRelationsDisplay();
+  abstract public function getEmbeddedRelationsHide();
+  abstract public function getFieldsGet();
+  abstract public function getFilters();
+  abstract public function getGlobalAdditionalFields();
+  abstract public function getHide();
+  abstract public function getMaxItems();
+  abstract public function getObjectAdditionalFields();
+  abstract public function getPaginationCustomPageSize();
+  abstract public function getPaginationEnabled();
+  abstract public function getPaginationPageSize();
+  abstract public function getSortCustom();
+  abstract public function getSortDefault();
+  abstract public function getDisableCreateValidators();
+
+  protected function compile(): void
   {
     $this->configuration = array(
       'default' => array(
@@ -52,13 +77,13 @@ class sfDoctrineRestGeneratorConfiguration
   /**
    * Gets the value for a given key.
    *
-   * @param array  $config  The configuration
+   * @param array<string,mixed>  $config  The configuration
    * @param string $key     The key name
    * @param mixed  $default The default value
    *
    * @return mixed The key value
    */
-  static public function getFieldConfigValue($config, $key, $default = null)
+  static public function getFieldConfigValue($config, string $key, $default = null)
   {
     $ref   =& $config;
     $parts =  explode('.', $key);
@@ -84,7 +109,7 @@ class sfDoctrineRestGeneratorConfiguration
     return $default;
   }
 
-  public function getContextConfiguration($context)
+  public function getContextConfiguration(string $context)
   {
     if (!isset($this->configuration[$context]))
     {
@@ -97,13 +122,11 @@ class sfDoctrineRestGeneratorConfiguration
   /**
    * Gets the configuration for a given field.
    *
-   * @param string  $key     The configuration key (title.list.name for example)
    * @param mixed   $default The default value if none has been defined
-   * @param Boolean $escaped Whether to escape single quote (false by default)
    *
    * @return mixed The configuration value
    */
-  public function getValue($key, $default = null, $escaped = false)
+  public function getValue(string $key, $default = null, bool $escaped = false)
   {
     if (preg_match('/^(?P<context>[^\.]+)\.(?P<key>.+)$/', $key, $matches))
     {

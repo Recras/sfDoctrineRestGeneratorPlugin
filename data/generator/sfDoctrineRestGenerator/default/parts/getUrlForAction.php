@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   /**
   * Generates the url to an other action of the module
   * @param string $action the action to which a url must gbe generated
