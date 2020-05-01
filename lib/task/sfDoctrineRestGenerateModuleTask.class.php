@@ -129,10 +129,5 @@ EOF
     );
 
     $this->getFilesystem()->replaceTokens($finder->in($moduleDir), '##', '##', $this->constants);
-
-    // Move the fonctionnal test in the sf_test_dir directory
-    $this->getFilesystem()->copy($moduleDir.'/test/actionsTest.php', sfConfig::get('sf_test_dir').'/functional/'.$this->constants['APP_NAME'].'/'.$this->constants['MODULE_NAME'].'ActionsTest.php');
-    $this->getFilesystem()->remove($moduleDir.'/test/actionsTest.php');
-    $this->getFilesystem()->remove($moduleDir.'/test');
   }
 }
