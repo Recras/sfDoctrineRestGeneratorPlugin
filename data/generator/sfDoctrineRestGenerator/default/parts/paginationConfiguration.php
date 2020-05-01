@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   public function getPaginationCustomPageSize()
   {
     return <?php echo $this->asPhp(isset($this->config['get']['pagination_custom_page_size']) ? $this->config['get']['pagination_custom_page_size'] : false) ?>;

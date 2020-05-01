@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
 <?php $embed_relations_custom = $this->configuration->getValue('get.embed_relations_custom'); ?>
 <?php $embed_relations_display = $this->configuration->getValue('get.embed_relations_display'); ?>
 <?php $display = $this->configuration->getValue('get.display'); ?>

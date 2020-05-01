@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
 <?php
 $max_items = $this->configuration->getValue('get.max_items');
 $pagination_custom_page_size = $this->configuration->getValue('get.pagination_custom_page_size');

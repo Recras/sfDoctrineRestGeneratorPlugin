@@ -18,9 +18,8 @@
  */
 class sfDoctrineRestGenerator extends sfGenerator
 {
-  protected
-    $configuration = null,
-    $primaryKey    = array(),
+  protected sfDoctrineRestGeneratorConfiguration $configuration;
+  protected $primaryKey    = array(),
     $modelClass    = '',
     $params        = array(),
     $config        = array(),
@@ -412,7 +411,7 @@ class sfDoctrineRestGenerator extends sfGenerator
   /**
    * Loads the configuration for this generated module.
    */
-  protected function loadConfiguration()
+  protected function loadConfiguration(): sfDoctrineRestGeneratorConfiguration
   {
     try
     {

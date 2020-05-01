@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
 /**
  * Returns the list of sort validators
  * @return  array  an array of validators

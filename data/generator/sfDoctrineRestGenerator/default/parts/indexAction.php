@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   /**
    * Retrieves a  collection of <?php echo $this->getModelClass() ?> objects
    * @param   sfWebRequest   $request a request object

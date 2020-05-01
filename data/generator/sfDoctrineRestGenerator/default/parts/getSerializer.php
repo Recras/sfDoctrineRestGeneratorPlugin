@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   protected function getSerializer()
   {
     if (!isset($this->serializer))

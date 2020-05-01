@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   protected function parsePayload($payload, $force = false)
   {
     if ($force || !isset($this->_payload_array))

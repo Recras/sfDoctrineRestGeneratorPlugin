@@ -1,3 +1,4 @@
+<?php assert($this instanceof sfDoctrineRestGenerator); ?>
   protected function getFormat()
   {
     if (!isset($this->format))
