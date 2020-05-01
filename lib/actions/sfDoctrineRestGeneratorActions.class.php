@@ -5,7 +5,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
   /** @var array[] */
   protected $objects = [];
 
-  /** @var array */
+  /** @var array<string,mixed> */
   protected $_payload_array;
 
   /**
@@ -26,7 +26,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
     {
       return $this->handleException($e);
     }
-    catch (sfDRGUnserializeException $e)
+    catch (JsonException $e)
     {
       return $this->handleException($e);
     }
@@ -57,7 +57,6 @@ class sfDoctrineRestGeneratorActions extends sfActions
 
     try
     {
-      $format = $this->getFormat();
       $params = $this->validateShow($params);
     }
     catch (sfValidatorError $e)
@@ -65,15 +64,13 @@ class sfDoctrineRestGeneratorActions extends sfActions
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);
     }
-    catch (sfDRGUnserializeException $e)
+    catch (JsonException $e)
     {
       return $this->handleException($e);
     }
 
     $this->queryFetchOne($params);
-    if ($format = $this->getFormat()) {
-      $request->setRequestFormat($format);
-    }
+    $request->setRequestFormat('json');
     $this->forward404Unless(is_array($this->objects[0]));
 
     $this->formatObjects($params);
@@ -101,7 +98,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);
     }
-    catch (sfDRGUnserializeException $e)
+    catch (JsonException $e)
     {
       return $this->handleException($e);
     }
@@ -263,12 +260,11 @@ class sfDoctrineRestGeneratorActions extends sfActions
   public function handleException(Exception $e)
   {
     $this->getResponse()->setStatusCode(406);
-    $serializer = $this->getSerializer();
-    $this->getResponse()->setContentType($serializer->getContentType());
+    $this->getResponse()->setContentType('application/json');
     if ($e instanceof sfValidatorErrorSchema)
     {
       $err = $this->formatValidatorErrorSchema($e);
-      $this->output = $serializer->serialize($err);
+      $this->output = json_encode($err, JSON_THROW_ON_ERROR);
       return $this->renderText($this->output);
     }
     $error = $e->getMessage();
@@ -282,11 +278,11 @@ class sfDoctrineRestGeneratorActions extends sfActions
     if ($error === $result)
     {
       $error = array(array('message' => $error));
-      $this->output = $serializer->serialize($error, 'error');
+      $this->output = json_encode($error, JSON_THROW_ON_ERROR);
     }
     else
     {
-      $this->output = $serializer->serialize($result);
+      $this->output = json_encode($result, JSON_THROW_ON_ERROR);
     }
 
     return $this->renderText($this->output);
@@ -299,12 +295,11 @@ class sfDoctrineRestGeneratorActions extends sfActions
    */
   protected function outputObjects($multiple = true)
   {
-    $serializer = $this->getSerializer();
-    $this->getResponse()->setContentType($serializer->getContentType());
+    $this->getResponse()->setContentType('application/json');
     if ($multiple) {
-      $this->output = $serializer->serialize($this->objects, $this->model);
+      $this->output = json_encode($this->objects, JSON_THROW_ON_ERROR);
     } else {
-      $this->output = $serializer->serialize($this->objects[0], $this->model, false);
+      $this->output = json_encode($this->objects[0], JSON_THROW_ON_ERROR);
 	 }
 	 $this->getRequest()->setRequestFormat('html');
   }
@@ -334,6 +329,15 @@ class sfDoctrineRestGeneratorActions extends sfActions
       }
     }
     return $params;
+  }
+
+  /** @return array<string,mixed> */
+  protected function parsePayload(string $payload, bool $force = false): array
+  {
+    if ($force || !isset($this->_payload_array)) {
+      $this->_payload_array = json_decode($payload, true, 512, JSON_THROW_ON_ERROR);
+    }
+    return $this->_payload_array;
   }
 
   public function query($params)

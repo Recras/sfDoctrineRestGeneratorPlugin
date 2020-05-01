@@ -1,28 +1,19 @@
 <?php assert($this instanceof sfDoctrineRestGenerator); ?>
-  protected function parsePayload($payload, $force = false)
+<?php $global_additional_fields = $this->configuration->getValue('get.global_additional_fields', []); ?>
+<?php $object_additional_fields = $this->configuration->getValue('get.global_additional_fields', []); ?>
+<?php if ($global_additional_fields !== [] || $object_additional_fields !== []): ?>
+  protected function parsePayload(string $payload, bool $force = false): array
   {
     if ($force || !isset($this->_payload_array))
     {
-      $format = $this->getFormat();
-      $serializer = $this->getSerializer();
+      $payload_array = parent::parsePayload($$payload, $force);
 
-      if ($serializer)
-      {
-        $payload_array = $serializer->unserialize($payload);
-      }
-
-      if (!isset($payload_array) || $payload_array === false)
-      {
-        throw new sfException(sprintf('Could not parse payload, not valid %s data', $format));
-      }
-
-      $filter_params = <?php var_export(array_flip(array_merge(
-        $this->configuration->getValue('get.global_additional_fields', array()),
-        $this->configuration->getValue('get.object_additional_fields', array())
-      ))) ?>;
+      $filter_params = <?php var_export(array_flip(array_merge($global_additional_fields, $object_additional_fields))) ?>;
 
       $this->_payload_array = array_diff_key($payload_array, $filter_params);
     }
 
     return $this->_payload_array;
   }
+
+<?php endif; ?>

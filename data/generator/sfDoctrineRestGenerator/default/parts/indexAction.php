@@ -17,7 +17,7 @@
 
     try
     {
-      $format = $this->getFormat();
+      $format = 'json';
       $params = $this->validateIndex($params);
     }
     catch (sfValidatorError $e)
@@ -25,7 +25,7 @@
       $this->getResponse()->setStatusCode(406);
       return $this->handleException($e);
     }
-    catch (sfDRGUnserializeException $e)
+    catch (JsonException $e)
     {
       return $this->handleException($e);
     }

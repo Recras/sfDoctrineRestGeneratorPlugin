@@ -28,8 +28,6 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends <?php echo $t
 
 <?php include dirname(__FILE__).'/../../parts/getCreateValidators.php' ?>
 
-<?php include dirname(__FILE__).'/../../parts/getFormat.php' ?>
-
 <?php include dirname(__FILE__).'/../../parts/getIndexValidators.php' ?>
 
 <?php
@@ -38,8 +36,6 @@ if ($this->configuration->getValue('get.pagination_enabled'))
   include dirname(__FILE__).'/../../parts/getPaginationValidators.php';
 }
 ?>
-
-<?php include dirname(__FILE__).'/../../parts/getSerializer.php' ?>
 
 <?php
 if ($this->configuration->getValue('get.sort_custom'))
