@@ -15,11 +15,8 @@ abstract class sfDoctrineRestGeneratorConfiguration
 
   abstract public function getFieldsDefault();
   abstract public function getEmbeddedRelationsFieldsDefault();
-  abstract public function getFormatsEnabled();
-  abstract public function getFormatsStrict();
   abstract public function getSeparator();
   abstract public function getAdditionalParams();
-  abstract public function getDefaultFormat();
   abstract public function getDisplay();
   abstract public function getEmbedRelations();
   abstract public function getEmbedRelationsCustom();
@@ -44,13 +41,10 @@ abstract class sfDoctrineRestGeneratorConfiguration
       'default' => array(
         'fields'                      => $this->getFieldsDefault(),
         'embedded_relations_fields'   => $this->getEmbeddedRelationsFieldsDefault(),
-        'formats_enabled'             => $this->getFormatsEnabled(),
-        'formats_strict'              => $this->getFormatsStrict(),
         'separator'                   => $this->getSeparator()
       ),
       'get'     => array(
         'additional_params'           => $this->getAdditionalParams(),
-        'default_format'              => $this->getDefaultFormat(),
         'display'                     => $this->getDisplay(),
         'embed_relations'             => $this->getEmbedRelations(),
         'embed_relations_custom'      => $this->getEmbedRelationsCustom(),

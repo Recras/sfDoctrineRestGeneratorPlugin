@@ -9,7 +9,7 @@ for data exchange. Here are some key features :
   * REST module generation "à la admin-generator"
   * easy-to-customize generator.yml configuration file
   * validation of the parameters passed to the service using symfony validators
-  * serialization as XML, YAML or JSON feeds
+  * serialization as JSON
   * possibility to embed related models, in retrieval as well as in creation requests
   * possibility to embed extra fields
   * ability to limit the number of results, with or without pagination
@@ -180,12 +180,9 @@ Here is the default content of the `generator.yml` file:
               default:
         #        fields:                                # list here the fields.
         #          created_at:                  { date_format: 'Y-m-d\TH:i:s', tag_name: 'created' }      # for instance
-        #        formats_enabled:               [ json, xml, yaml ]    # enabled formats
-        #        formats_strict:                true
         #        separator:                     ','     # separator used for multiple filters
               get:
         #        additional_params:             []      # list here additional params names, which are not object properties
-        #        default_format:                json    # the default format of the response. If not set, will default to json. Accepted values are  "json", "xml" or "yaml"
         #        display:                       []      # list here the fields to render in the response
         #        embed_relations:               []      # list here relations to embed in the response
         #        embedded_relations_hide:
@@ -229,32 +226,6 @@ decoration options that are used during the (de-)serialization. It might be:
   * `type`: the type to use for displaying this field. All [php cast keywords](http://www.php.net/manual/en/language.types.type-juggling.php#language.types.typecasting) are supported, null values are retained.
 
 
-#### formats_enabled
-
-This contains the list of the formats allowed in the communication with the
-API. The default allowed formats are JSON, XML and YAML, JSON being the
-default format.
-
-This means that you can call a resource at the following URIs:
-
-  * http://api.example.com/post will return a JSON formatted list of the posts,
-  * http://api.example.com/post.xml will return a XML formatted list of the posts,
-  * http://api.example.com/post.json will return a JSON formatted list of the posts.
-
-Would you want to add a new serialization format, you should add this format
-in the `generator.yml`, and create a serializer. See examples in the
-`lib/serializer` directory of the plugin. You may also want to read the
-section "How to create a new serialization format" below.
-
-
-#### formats_strict
-
-This indicates whether or not the api should return an error when an
-un-handled format is requested or posted. If the option is activated (it is
-by default), the module will display an error. If not, the module will use
-the format by default.
-
-
 #### separator
 
 The separator to use in url when passing objects primary keys. The generated
@@ -269,7 +240,7 @@ The `get` option lists several options specific to the "get" operation:
 
 #### additional_params
 
-The `default_format` option allows to define an array of parameter names,
+The `additional_params` option allows to define an array of parameter names,
 which the webservice will accept.
 
 The validation of the parameters  in the generator is rather strict, and for
@@ -282,15 +253,6 @@ The purpose of this parameter is to allow third-party params to be passed to
 the service. For instance, you might want to pass a "`token`" or "`api_key`"
 parameter, which could then be used to check if the client is allowed to use
 the service.
-
-
-#### default_format
-
-The `default_format` option allows to define the default serialization format
-when no format is asked for in the request. The accepted values are "json",
-"xml" or "yaml", or any other serialization format that you could develop
-(see the "Serialization" paragraph). If this parameter is not set, the
-generator will default to a "json" serializer.
 
 
 #### display
@@ -627,64 +589,6 @@ Some other configuration variables are not present in the default configuration 
 
  * the `actions_base_class` parameter allows to change the name of the base action class which is extended by the module's action class. This permits to use your own action class, which may package several methods which you will want to use in several REST modules.
 
-
-
-## Serialization
-
-The response to a get request is formatted as a XML feed or a JSON array. The
-XML serializer generates a valid feed, enclosing the content of a field in
-CDATA sections if necessary.
-
-The serialization is done directly in the action, not in the template, in
-order to improve the performance when output escaping is enabled.
-
-
-### How to create a new serialization format?
-
-Creating a new serialization format, or overriding an existing serializer,
-can simply be done by creating a "sfResourceSerializerXXX" class, where "XXX"
-stands for the format you want to implement or override.
-
-Here is for instance how the json serializer looks like:
-
-      class sfResourceSerializerJson extends sfResourceSerializer
-      {
-        public function getContentType()
-        {
-          return 'application/json';
-        }
-
-        public function serialize($array, $rootNodeName = 'data')
-        {
-          return json_encode($array);
-        }
-
-        public function unserialize($payload)
-        {
-          return json_decode($array);
-        }
-      }
-
-Would you like to add a "data" root node to the output json feed, you should
-simply create a file in the `lib/serializers` directory of you project:
-
-      class sfResourceSerializerJson extends sfResourceSerializer
-      {
-        public function getContentType()
-        {
-          return 'application/json';
-        }
-
-        public function serialize($array, $rootNodeName = 'data')
-        {
-          return json_encode(array($rootNodeName => $array));
-        }
-
-        public function unserialize($payload)
-        {
-          return json_decode(array_shift($payload), true);
-        }
-      }
 
 
 ## Events

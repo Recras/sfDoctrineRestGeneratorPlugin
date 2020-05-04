@@ -17,12 +17,6 @@ abstract class Base<?php echo ucfirst($this->getModuleName()) ?>GeneratorConfigu
 <?php unset($this->config['get']['additional_params']) ?>
   }
 
-  public function getDefaultFormat()
-  {
-    return <?php echo $this->asPhp(isset($this->config['get']['default_format']) ? $this->config['get']['default_format'] : 'json') ?>;
-<?php unset($this->config['get']['default_format']) ?>
-  }
-
   public function getDisplay()
   {
     return <?php echo $this->asPhp(isset($this->config['get']['display']) ? $this->config['get']['display'] : array()) ?>;
@@ -58,18 +52,6 @@ abstract class Base<?php echo ucfirst($this->getModuleName()) ?>GeneratorConfigu
 
     return $embedded_relations_hide;
 <?php unset($this->config['get']['embedded_relations_hide']) ?>
-  }
-
-  public function getFormatsEnabled()
-  {
-    return <?php echo $this->asPhp(isset($this->config['default']['formats_enabled']) ? $this->config['default']['formats_enabled'] : array('json', 'xml', 'yaml')) ?>;
-<?php unset($this->config['default']['formats_enabled']) ?>
-  }
-
-  public function getFormatsStrict()
-  {
-    return <?php echo $this->asPhp(isset($this->config['default']['formats_strict']) ? $this->config['default']['formats_strict'] : true) ?>;
-<?php unset($this->config['default']['formats_strict']) ?>
   }
 
 <?php include dirname(__FILE__).'/fieldsConfiguration.php' ?>

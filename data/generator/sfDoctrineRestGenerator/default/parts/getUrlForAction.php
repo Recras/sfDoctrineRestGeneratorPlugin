@@ -21,7 +21,7 @@
       array_merge(
         array(
           'sf_route' => '<?php echo $this->getModuleName(); ?>_'.$action,
-          'sf_format' => $this->getFormat(),
+          'sf_format' => 'json',
         ),
         $route_parameters
       ),
