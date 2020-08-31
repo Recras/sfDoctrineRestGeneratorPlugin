@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @template T of \Doctrine_Record
+ *
+ * @property T $object
+ * @property class-string<T> $model
+ */
 class sfDoctrineRestGeneratorActions extends sfActions
 {
   /** @var array[] */
@@ -144,6 +150,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
     //}
   }
 
+  /** @return T */
   protected function createObject()
   {
     return new $this->model();
@@ -181,7 +188,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
 
   /**
    * Returns the list of validators for a create request.
-   * @return  array  an array of validators
+   * @return  array<string,\sfValidatorBase>  an array of validators
    */
   public function getCreatePostValidators()
   {
@@ -190,18 +197,20 @@ class sfDoctrineRestGeneratorActions extends sfActions
 
   /**
    * Returns the list of validators for a get request.
-   * @return  array  an array of validators
+   * @return  array<string,\sfValidatorBase>  an array of validators
    */
   public function getIndexPostValidators()
   {
     return array();
   }
 
+  /** @return array<string,\sfValidatorBase> */
   protected function getPaginationValidators()
   {
     return array();
   }
 
+  /** @return array<string,\sfValidatorBase> */
   protected function getSortValidators()
   {
     return array();
@@ -209,7 +218,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
 
   /**
    * Returns the list of validators for an update request.
-   * @return  array  an array of validators
+   * @return  array<string,\sfValidatorBase>  an array of validators
    */
   public function getUpdatePostValidators()
   {
@@ -218,7 +227,7 @@ class sfDoctrineRestGeneratorActions extends sfActions
 
   /**
    * Returns the list of validators for an update request.
-   * @return  array  an array of validators
+   * @return  array<string,\sfValidatorBase>  an array of validators
    */
   public function getUpdateValidators()
   {
