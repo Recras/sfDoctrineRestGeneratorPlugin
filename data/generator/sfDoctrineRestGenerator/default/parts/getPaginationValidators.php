@@ -5,7 +5,7 @@ $max_items = $this->configuration->getValue('get.max_items');
 ?>
   /**
    * Returns the list of pagination validators
-   * @return  array  an array of validators
+   * @return  array<string,\sfValidatorBase>  an array of validators
    */
   protected function getPaginationValidators()
   {
