@@ -303,6 +303,9 @@ class sfDoctrineRestGenerator extends sfGenerator
       $baseClasses[] = $builderOptions['baseClassName'];
     }
 
+    if (!class_exists($model)) {
+      return null;
+    }
     while ($model = get_parent_class($model))
     {
       if (in_array($model, $baseClasses))
