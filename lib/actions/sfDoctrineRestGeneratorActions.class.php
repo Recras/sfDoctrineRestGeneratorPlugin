@@ -340,8 +340,12 @@ class sfDoctrineRestGeneratorActions extends sfActions
     return $params;
   }
 
-  /** @return array<string,mixed> */
-  protected function parsePayload(string $payload, bool $force = false): array
+  /**
+   * @param string $payload
+   * @param bool $force
+   * @return array<string,mixed>
+   */
+  protected function parsePayload($payload, $force = false)
   {
     if ($force || !isset($this->_payload_array)) {
       $this->_payload_array = json_decode($payload, true, 512, JSON_THROW_ON_ERROR);
