@@ -1,6 +1,6 @@
 <?php assert($this instanceof sfDoctrineRestGenerator); ?>
 <?php $global_additional_fields = $this->configuration->getValue('get.global_additional_fields', []); ?>
-<?php $object_additional_fields = $this->configuration->getValue('get.global_additional_fields', []); ?>
+<?php $object_additional_fields = $this->configuration->getValue('get.object_additional_fields', []); ?>
 <?php if ($global_additional_fields !== [] || $object_additional_fields !== []): ?>
   protected function parsePayload(?string $payload, bool $force = false): array
   {
