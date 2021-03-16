@@ -298,7 +298,6 @@ class sfDoctrineRestGenerator extends sfGenerator
     );
 
     $builderOptions = sfConfig::get('doctrine_model_builder_options', array());
-    $baseClasses = [];
     if (isset($builderOptions['baseClassName']))
     {
       $baseClasses[] = $builderOptions['baseClassName'];
