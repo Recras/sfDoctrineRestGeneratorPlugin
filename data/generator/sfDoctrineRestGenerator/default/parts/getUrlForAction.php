@@ -14,7 +14,7 @@
     }
     else
     {
-      $route_parameters = '';
+      $route_parameters = [];
     }
 
     return $this->getController()->genUrl(
